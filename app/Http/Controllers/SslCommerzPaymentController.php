@@ -17,6 +17,9 @@ class SslCommerzPaymentController extends Controller
     {
         // return $request->all();
         $request = json_decode($request->cart_json);
+        $type = $request->type;
+        $charge = $type == 'ex' ? $request->total_member * 75 : 25;
+        $total_amount = $type == 'ex' ? $request->total_member * 3000 + $charge : 1000 + $charge;
         //  return $t->amount;
         //  dd($request->cart_json->cus_name);
 
@@ -25,7 +28,7 @@ class SslCommerzPaymentController extends Controller
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
         $post_data = array();
-        $post_data['total_amount'] = $request->total_member * 3000; # You cant not pay less than 10
+        $post_data['total_amount'] = $total_amount; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -89,7 +92,13 @@ class SslCommerzPaymentController extends Controller
         $sslc = new SslCommerzNotification();
 
         #Check order status in order tabel against the transaction id or order id.
-        $order_details = ex_students::where('phone', $mobile)->first();
+        if ($reg_type == 'ex') {
+
+            $order_details = ex_students::where('phone', $mobile)->first();
+        } elseif ($reg_type == 'present') {
+
+            $order_details = present_students::where('phone', $mobile)->first();
+        }
         if ($order_details->payment == '0') {
             // dd($order_details);
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency, $mobile);
@@ -101,27 +110,50 @@ class SslCommerzPaymentController extends Controller
                 Here you can also sent sms or email for successfull transaction to customer
                 */
                 $ssl = SslCommerzPay_info::create($request->all());
-                $update_fees = ex_students::where('phone', $mobile)
-                    ->update([
-                        'payment' => 1,
-                        'payment_date' => date('Y-m-d h:i:s'),
-                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
-                    ]);
+                if ($reg_type == 'ex') {
 
-                echo "<br >Transaction is successfully Completed";
+                    $update_fees = ex_students::where('phone', $mobile)
+                        ->update([
+                            'payment' => 1,
+                            'payment_date' => date('Y-m-d h:i:s'),
+                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        ]);
+                } elseif ($reg_type == 'present') {
+
+                    $update_fees = present_students::where('phone', $mobile)
+                        ->update([
+                            'payment' => 1,
+                            'payment_date' => date('Y-m-d h:i:s'),
+                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        ]);
+                }
+
+                return redirect('/')->with('success', 'Transaction is successfully Completed');
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
                 Here you need to update order status as Failed in order table.
                 */
                 $ssl = SslCommerzPay_info::create($request->all());
-                $update_fees = ex_students::where('phone', $mobile)
-                    ->update([
-                        'payment' => 0,
-                        'payment_date' => date('Y-m-d h:i:s a'),
-                        'tran_id' => $tran_id,
-                    ]);
-                echo "validation Fail";
+
+                if ($reg_type == 'ex') {
+
+                    $update_fees = ex_students::where('phone', $mobile)
+                        ->update([
+                            'payment' => 0,
+                            'payment_date' => date('Y-m-d h:i:s'),
+                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        ]);
+                } elseif ($reg_type == 'present') {
+
+                    $update_fees = present_students::where('phone', $mobile)
+                        ->update([
+                            'payment' => 0,
+                            'payment_date' => date('Y-m-d h:i:s'),
+                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        ]);
+                }
+                return redirect('/')->with('warning', 'validation Fail');
             }
         } else if ($order_details->payment == '1') {
 
@@ -141,21 +173,39 @@ class SslCommerzPaymentController extends Controller
         $reg_id = $request->input('value_b');
         $reg_type = $request->input('value_c');
 
-        $order_details = ex_students::where('phone', $mobile)->first();
+        if ($reg_type == 'ex') {
+
+            $order_details = ex_students::where('phone', $mobile)->first();
+        } elseif ($reg_type == 'present') {
+
+            $order_details = present_students::where('phone', $mobile)->first();
+        }
 
         if ($order_details->payment == '0') {
             $ssl = SslCommerzPay_info::create($request->all());
-            $update_fees = ex_students::where('phone', $mobile)
-                ->update([
-                    'payment' => 0,
-                    'payment_date' => date('Y-m-d h:i:s a'),
-                    'tran_id' => $tran_id,
-                ]);
-            echo "Transaction is Falied";
+            if ($reg_type == 'ex') {
+
+                $update_fees = ex_students::where('phone', $mobile)
+                    ->update([
+                        'payment' => 0,
+                        'payment_date' => date('Y-m-d h:i:s'),
+                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                    ]);
+            } elseif ($reg_type == 'present') {
+
+                $update_fees = present_students::where('phone', $mobile)
+                    ->update([
+                        'payment' => 0,
+                        'payment_date' => date('Y-m-d h:i:s'),
+                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                    ]);
+            }
+
+            return redirect('/')->with('error', 'Transaction is Falied');
         } else if ($order_details->payment == '1') {
-            echo "Transaction is already Successful";
+            return redirect('/')->with('warning', 'Transaction is already Successful');
         } else {
-            echo "Transaction is Invalid";
+            return redirect('/')->with('error', 'Transaction is Invalid');
         }
     }
 
@@ -166,20 +216,37 @@ class SslCommerzPaymentController extends Controller
         $reg_id = $request->input('value_b');
         $reg_type = $request->input('value_c');
 
-        $order_details = ex_students::where('phone', $mobile)->first();
+        if ($reg_type == 'ex') {
+
+            $order_details = ex_students::where('phone', $mobile)->first();
+        } elseif ($reg_type == 'present') {
+
+            $order_details = present_students::where('phone', $mobile)->first();
+        }
         if ($order_details->payment == '0') {
             $ssl = SslCommerzPay_info::create($request->all());
-            $update_fees = ex_students::where('phone', $mobile)
-                ->update([
-                    'payment' => 0,
-                    'payment_date' => date('Y-m-d h:i:s a'),
-                    'tran_id' => $tran_id,
-                ]);
-            echo "Transaction is Cancel";
+            if ($reg_type == 'ex') {
+
+                $update_fees = ex_students::where('phone', $mobile)
+                    ->update([
+                        'payment' => 0,
+                        'payment_date' => date('Y-m-d h:i:s'),
+                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                    ]);
+            } elseif ($reg_type == 'present') {
+
+                $update_fees = present_students::where('phone', $mobile)
+                    ->update([
+                        'payment' => 0,
+                        'payment_date' => date('Y-m-d h:i:s'),
+                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                    ]);
+            }
+            return redirect('/')->with('error', 'Transaction is Cancel');
         } else if ($order_details->payment == '1') {
-            echo "Transaction is already Successful";
+            return redirect('/')->with('warning', 'Transaction is already Successful');
         } else {
-            echo "Transaction is Invalid";
+            return redirect('/')->with('error', 'Transaction is Invalid');
         }
     }
 
@@ -196,7 +263,13 @@ class SslCommerzPaymentController extends Controller
             $reg_id = $request->input('value_b');
             $reg_type = $request->input('value_c');
 
-            $order_details = ex_students::where('phone', $mobile)->first();
+            if ($reg_type == 'ex') {
+
+                $order_details = ex_students::where('phone', $mobile)->first();
+            } elseif ($reg_type == 'present') {
+
+                $order_details = present_students::where('phone', $mobile)->first();
+            }
 
             if ($order_details->payment == '0') {
                 $sslc = new SslCommerzNotification();
@@ -208,41 +281,61 @@ class SslCommerzPaymentController extends Controller
                     Here you can also sent sms or email for successful transaction to customer
                     */
                     $ssl = SslCommerzPay_info::create($request->all());
-                    $update_fees = ex_students::where('phone', $mobile)
-                        ->update([
-                            'payment' => 1,
-                            'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
-                        ]);
+                    if ($reg_type == 'ex') {
 
-                    echo "Transaction is successfully Completed";
+                        $update_fees = ex_students::where('phone', $mobile)
+                            ->update([
+                                'payment' => 1,
+                                'payment_date' => date('Y-m-d h:i:s'),
+                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            ]);
+                    } elseif ($reg_type == 'present') {
+
+                        $update_fees = present_students::where('phone', $mobile)
+                            ->update([
+                                'payment' => 1,
+                                'payment_date' => date('Y-m-d h:i:s'),
+                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            ]);
+                    }
+                    return redirect('/')->with('success', 'Transaction is successfully Completed');
                 } else {
                     /*
                     That means IPN worked, but Transation validation failed.
                     Here you need to update order status as Failed in order table.
                     */
                     $ssl = SslCommerzPay_info::create($request->all());
-                    $update_fees = ex_students::where('phone', $mobile)
-                        ->update([
-                            'payment' => 0,
-                            'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
-                        ]);
+                    if ($reg_type == 'ex') {
 
-                    echo "validation Fail";
+                        $update_fees = ex_students::where('phone', $mobile)
+                            ->update([
+                                'payment' => 0,
+                                'payment_date' => date('Y-m-d h:i:s'),
+                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            ]);
+                    } elseif ($reg_type == 'present') {
+
+                        $update_fees = present_students::where('phone', $mobile)
+                            ->update([
+                                'payment' => 0,
+                                'payment_date' => date('Y-m-d h:i:s'),
+                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            ]);
+                    }
+                    return redirect('/')->with('warning', 'validation Fail');
                 }
             } else if ($order_details->payment == '1') {
 
                 #That means Order status already updated. No need to udate database.
 
-                echo "Transaction is already successfully Completed";
+                return redirect('/')->with('warning', 'Transaction is already successfully Completed');
             } else {
                 #That means something wrong happened. You can redirect customer to your product page.
 
-                echo "Invalid Transaction";
+                return redirect('/')->with('error', 'Invalid Transaction');
             }
         } else {
-            echo "Invalid Data";
+            return redirect('/')->with('error', 'Invalid Data');
         }
     }
 }
