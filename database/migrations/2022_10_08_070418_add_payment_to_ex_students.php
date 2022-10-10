@@ -14,8 +14,9 @@ class AddPaymentToExStudents extends Migration
     public function up()
     {
         Schema::table('ex_students', function (Blueprint $table) {
-            $table->integer('payment')->nullable();
-            $table->dateTime('payment_date')->nullable();
+            $table->integer('payment')->nullable()->default(0)->change();
+            $table->dateTime('payment_date')->nullable()->change();
+            $table->longText('tran_id')->nullable()->change();
         });
     }
 
@@ -27,8 +28,9 @@ class AddPaymentToExStudents extends Migration
     public function down()
     {
         Schema::table('ex_students', function (Blueprint $table) {
-            $table->integer('payment')->nullable();
-            $table->dateTime('payment_date')->nullable();
+            $table->integer('payment')->nullable()->default(0)->change();
+            $table->dateTime('payment_date')->nullable()->change();
+            $table->longText('tran_id')->nullable()->change();
         });
     }
 }

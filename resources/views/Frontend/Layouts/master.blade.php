@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
 </head>
-<body oncontextmenu="return false;">
+{{-- oncontextmenu="return false;" --}}
+<body >
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
     <div class="container-fluid">
@@ -38,7 +39,7 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>
-                      
+
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
@@ -48,7 +49,7 @@
                               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 শতবর্ষ উদযাপন
                               </a>
-                              @php 
+                              @php
                               $committee = DB::table('committee_infos')->where('status',1)->get();
                               @endphp
                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -239,7 +240,7 @@
           $("#total_ammount").val(subtotal_ammount);
           $('#family_info').hide();
         }
-        
+
       });
   });
 </script>
