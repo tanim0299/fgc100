@@ -141,7 +141,7 @@ class SslCommerzPaymentController extends Controller
                         ]);
                 }
 
-                return redirect('/')->with('success', 'Transaction is successfully Completed');
+                return redirect('/')->with('success_pay', 'Transaction is successfully Completed');
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -166,15 +166,15 @@ class SslCommerzPaymentController extends Controller
                             // 'tran_id' => Crypt::encrypt($bank_tran_id),
                         ]);
                 }
-                return redirect('/')->with('warning', 'validation Fail');
+                return redirect('/')->with('warning_pay', 'validation Fail');
             }
         } else if ($order_details->payment == '1') {
 
             #That means Order status already updated. No need to udate database.
-            return redirect('/')->with('warning', 'Transaction is already successfully Completed');
+            return redirect('/')->with('warning_pay', 'Transaction is already successfully Completed');
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
-            return redirect('/')->with('error', 'Invalid Transaction');
+            return redirect('/')->with('error_pay', 'Invalid Transaction');
             // echo "Invalid Transaction";
         }
     }
@@ -215,11 +215,11 @@ class SslCommerzPaymentController extends Controller
                     ]);
             }
 
-            return redirect('/')->with('error', 'Transaction is Falied');
+            return redirect('/')->with('error_pay', 'Transaction is Falied');
         } else if ($order_details->payment == '1') {
-            return redirect('/')->with('warning', 'Transaction is already Successful');
+            return redirect('/')->with('warning_pay', 'Transaction is already Successful');
         } else {
-            return redirect('/')->with('error', 'Transaction is Invalid');
+            return redirect('/')->with('error_pay', 'Transaction is Invalid');
         }
     }
 
@@ -257,11 +257,11 @@ class SslCommerzPaymentController extends Controller
                         // 'tran_id' => Crypt::encrypt($bank_tran_id),
                     ]);
             }
-            return redirect('/')->with('error', 'Transaction is Cancel');
+            return redirect('/')->with('error_pay', 'Transaction is Cancel');
         } else if ($order_details->payment == '1') {
-            return redirect('/')->with('warning', 'Transaction is already Successful');
+            return redirect('/')->with('warning_pay', 'Transaction is already Successful');
         } else {
-            return redirect('/')->with('error', 'Transaction is Invalid');
+            return redirect('/')->with('error_pay', 'Transaction is Invalid');
         }
     }
 
@@ -325,7 +325,7 @@ class SslCommerzPaymentController extends Controller
                                 'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
                     }
-                    return redirect('/')->with('success', 'Transaction is successfully Completed');
+                    return redirect('/')->with('success_pay', 'Transaction is successfully Completed');
                 } else {
                     /*
                     That means IPN worked, but Transation validation failed.
@@ -349,20 +349,20 @@ class SslCommerzPaymentController extends Controller
                                 // 'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
                     }
-                    return redirect('/')->with('warning', 'validation Fail');
+                    return redirect('/')->with('warning_pay', 'validation Fail');
                 }
             } else if ($order_details->payment == '1') {
 
                 #That means Order status already updated. No need to udate database.
 
-                return redirect('/')->with('warning', 'Transaction is already successfully Completed');
+                return redirect('/')->with('warning_pay', 'Transaction is already successfully Completed');
             } else {
                 #That means something wrong happened. You can redirect customer to your product page.
 
-                return redirect('/')->with('error', 'Invalid Transaction');
+                return redirect('/')->with('error_pay', 'Invalid Transaction');
             }
         } else {
-            return redirect('/')->with('error', 'Invalid Data');
+            return redirect('/')->with('error_pay', 'Invalid Data');
         }
     }
 }
