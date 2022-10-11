@@ -18,3 +18,24 @@
 <!-- custom-chart js -->
 <script src="{{asset('public')}}/student_dashboard/js/pages/dashboard-main.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if(Session::has('warning_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('warning_pay') }}', 'warning');
+  </script>
+
+@endif
+@if(Session::has('error_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('error_pay') }}', 'error');
+  </script>
+
+@endif
+@if(Session::has('success_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('success_pay') }}', 'success');
+  </script>
+
+@endif
+
