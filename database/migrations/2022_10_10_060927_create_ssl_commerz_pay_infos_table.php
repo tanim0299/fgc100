@@ -26,7 +26,7 @@ class CreateSslCommerzPayInfosTable extends Migration
             $table->string("tran_date", 120)->nullable();
             $table->string("error", 120)->nullable();
             $table->string("currency", 20)->nullable();
-            $table->string("card_issuer", 20)->nullable();
+            $table->string("card_issuer", 120)->nullable();
             $table->string("card_brand", 120)->nullable();
             $table->string("card_sub_brand", 120)->nullable();
             $table->string("card_issuer_country", 120)->nullable();
