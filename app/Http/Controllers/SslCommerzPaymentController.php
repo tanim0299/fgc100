@@ -20,8 +20,8 @@ class SslCommerzPaymentController extends Controller
         // return $request->all();
         $request = json_decode($request->cart_json);
         $type = $request->type;
-        $charge = $type == 'ex' ? $request->total_member * 75 : 25;
-        $total_amount = $type == 'ex' ? $request->total_member * 3000 + $charge : 1000 + $charge;
+        // $charge = $type == 'ex' ? $request->total_member * 75 : 25;
+        $total_amount = $type == 'ex' ? $request->total_member * 3000  : 1000;
         //  return $t->amount;
         //  dd($request->cart_json->cus_name);
 
