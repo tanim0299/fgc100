@@ -242,11 +242,27 @@ class RegistrationController extends Controller
     public function presentpayment($id)
     {
         $data = present_students::find($id);
-        return view('Frontend.User.present_payment', compact('data'));
+        if($data->payment == 1)
+        {
+            return redirect('/');
+        }
+        else
+        {
+
+            return view('Frontend.User.present_payment', compact('data'));
+        }
     }
     public function expayment($id)
     {
         $data = ex_students::find($id);
-        return view('Frontend.User.ex_payment', compact('data'));
+        if($data->payment == 1)
+        {
+            return redirect('/');
+        }
+        else
+        {
+
+            return view('Frontend.User.present_payment', compact('data'));
+        }
     }
 }

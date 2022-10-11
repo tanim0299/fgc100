@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css" integrity="sha512-uj2QCZdpo8PSbRGL/g5mXek6HM/APd7k/B5Hx/rkVFPNOxAQMXD+t+bG4Zv8OAdUpydZTU3UHmyjjiHv2Ww0PA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <!-- Toastr -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 </head>
 {{-- oncontextmenu="return false;" --}}
@@ -50,7 +53,7 @@
                                 শতবর্ষ উদযাপন
                               </a>
                               @php
-                              $committee = DB::table('committee_infos')->where('status',1)->get();
+                              $committee = DB::table('committee_infos')->where('status',1)->orderby('serial_no','ASC')->get();
                               @endphp
                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @if($committee)
@@ -156,6 +159,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/solid.min.js" integrity="sha512-dcTe66qF6q/NW1X64tKXnDDcaVyRowrsVQ9wX6u7KSQpYuAl5COzdMIYDg+HqAXhPpIz1LO9ilUCL4qCbHN5Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+  
+</script>
+
 <script type="text/javascript">
     $(document).ready( function () {
     $('#myTable').DataTable();
@@ -244,5 +256,54 @@
       });
   });
 </script>
+
+
+<script>
+// swal("Hello!", "Your Payment Is Already Done!", "error");
+$(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+
+  @if(Session::has('success_pay'))
+    
+  swal("Congratulations!", "You Payment Is Successfull", "success");
+  @endif
+
+  @if(Session::has('error_pay'))
+  toastr.options =
+  swal("Oops!", "Something Went Wrong!", "error");
+  @endif
+
+  @if(Session::has('info_pay'))
+  swal("Hello!", "Your Payment Is Already Done!", "info");
+  @endif
+
+  @if(Session::has('warning_pay'))
+  swal("Hello!", "Your Payment Is Already Done!", "warning");
+  @endif
+
+  // toastr.error('You clicked Error Toast');
+</script>
+
+<script>
+
+
+</script>
+
 </body>
 </html>

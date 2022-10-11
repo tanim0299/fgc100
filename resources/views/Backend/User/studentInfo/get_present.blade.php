@@ -17,10 +17,10 @@
                 <span>Total Member : </span> <b>{{$data->total_member}}</b>
             </div>
             <div class="col-3 mt-4">
-                <span>Total Ammount : </span> <b>{{$data->total_ammount}}</b>
+                <span>Total Ammount : </span> <b>1025/- BDT</b>
             </div>
             <div class="col-3 mt-4">
-                <span>Status : </span> <b><div class="badge badge-success">Paid</div></b>
+                <span>Status : </span> <b>@if($data->payment == 1)<div class="badge badge-success">Paid</div></b>@else<div class="badge badge-danger">Unpaid</div>@endif
             </div>
         </div>
     </div>

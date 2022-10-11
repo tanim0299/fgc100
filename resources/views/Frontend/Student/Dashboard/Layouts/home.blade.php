@@ -158,7 +158,7 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="info-single">
                                     <b>সর্বমোট টাকা</b><br>
-                                    <span>{{$data->total_ammount}}</span> <span class="badge badge-danger">Unpaid</span>
+                                    <span>{{$data->total_ammount}}</span> @if($data->payment == 1)<span class="badge badge-success">Paid</span>@else<span class="badge badge-danger">Unpaid</span>@endif
                                 </div>
                             </div>
                             @php
