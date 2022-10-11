@@ -34,7 +34,7 @@
 @endif
 @if(Session::has('success_pay'))
   <script>
-      swal('Oops!', '{{ Session::get('success_pay') }}', 'success');
+      swal('Congratulations!', '{{ Session::get('success_pay') }}', 'success');
   </script>
 
 @endif

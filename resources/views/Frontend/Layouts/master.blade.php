@@ -26,7 +26,7 @@
 
 </head>
 {{-- oncontextmenu="return false;" --}}
-<body >
+<body oncontextmenu="return false;">
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
     <div class="container-fluid">
@@ -271,7 +271,7 @@
 @endif
 @if(Session::has('success_pay'))
   <script>
-      swal('Oops!', '{{ Session::get('success_pay') }}', 'success');
+      swal('Congratulations!', '{{ Session::get('success_pay') }}', 'success');
   </script>
 
 @endif
