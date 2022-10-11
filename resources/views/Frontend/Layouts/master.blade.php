@@ -275,10 +275,5 @@
   </script>
   <?php Session::forget('success_pay'); ?>
 @endif
-<<<<<<< HEAD
-=======
-
->>>>>>> 529f4e5df4d55b5bab8ce8396dddd7bfed5759a7
-
 </body>
 </html>
