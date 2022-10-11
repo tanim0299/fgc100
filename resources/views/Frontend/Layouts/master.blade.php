@@ -26,7 +26,7 @@
 
 </head>
 {{-- oncontextmenu="return false;" --}}
-<body oncontextmenu="return false;">
+<body >
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
     <div class="container-fluid">
@@ -77,7 +77,7 @@
                               </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/registered-students')}}">নিবন্ধনকৃত শিক্ষার্থীদের তথ্য</a>
-                              </li>
+                              </li> 
                             <li class="nav-item">
                                 <a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
                               </li>

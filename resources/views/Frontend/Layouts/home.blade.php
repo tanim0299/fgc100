@@ -26,6 +26,18 @@
   </div>
 
 
+  <div class="links">
+    <li class="">
+        <a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+      </li>
+    <li class="">
+        <a class="nav-link btn btn-warning" href="{{url('/ex-registration-form')}}" style="color: white !important;">প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
+      </li>
+    <li class="" style="">
+        <a class="nav-link btn btn-success" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
+      </li>
+  </div>
+
   {{-- news events --}}
 
   {{-- <div class="container">

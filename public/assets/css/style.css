@@ -227,10 +227,27 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light {
 .btn.btn-info {
     color: white !important;
 }
+.links {
+    text-align: center;
+    margin-top: 23px;
+}
+
+.links li {
+    list-style: none;
+    display: inline-block;
+    padding-top: 20px;
+}
+
+.links{
+    display: none;
+}
 @media screen and (max-width:768px)
 {
     .d-block{
         height: 200px;
         width: 100%;
+    }
+    .links{
+        display: block;
     }
 }
