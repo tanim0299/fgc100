@@ -261,19 +261,19 @@
   <script>
       swal('Oops!', '{{ Session::get('warning_pay') }}', 'warning');
   </script>
-  <?php Session::forget('warning_pay'); ?>
+
 @endif
 @if(Session::has('error_pay'))
   <script>
       swal('Oops!', '{{ Session::get('error_pay') }}', 'error');
   </script>
-  <?php Session::forget('error_pay'); ?>
+
 @endif
 @if(Session::has('success_pay'))
   <script>
       swal('Oops!', '{{ Session::get('success_pay') }}', 'success');
   </script>
-  <?php Session::forget('success_pay'); ?>
+
 @endif
 </body>
 </html>

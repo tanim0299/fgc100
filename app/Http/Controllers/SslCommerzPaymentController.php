@@ -9,6 +9,7 @@ use App\Models\present_students;
 use App\Models\ex_students;
 use App\Models\pay_success_info;
 use App\Models\SslCommerzPay_info;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class SslCommerzPaymentController extends Controller

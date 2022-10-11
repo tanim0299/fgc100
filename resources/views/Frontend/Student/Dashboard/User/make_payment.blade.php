@@ -50,8 +50,8 @@
                             <div class="input-single-box">
                                 <label>আপনার নাম</label>
                                 <input type="text" class="form-control" id="customer_name" readonly value="{{$data->name}}">
-                                <input type="text" class="form-control" id="reg_id" readonly value="{{$data->registration_id}}">
-                                <input type="text" class="form-control" id="type" readonly value="{{Auth::guard('students')->user()->student_type==1?'present':'ex'}}">
+                                <input type="hidden" class="form-control" id="reg_id" readonly value="{{$data->registration_id}}">
+                                <input type="hidden" class="form-control" id="type" readonly value="{{Auth::guard('students')->user()->student_type==1?'present':'ex'}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-12">
