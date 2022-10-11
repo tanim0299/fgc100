@@ -51,17 +51,16 @@ else
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('present_students')->where('registration_id',$id)->first();
                 @endphp
-                @if($check->payment == 0)
+                @if($check->payment == 1 && $tran_id == $bank_id)
+                <li class="nav-item">
+                    <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
+                </li>
+                @else
                 <li class="nav-item">
                     <a href="{{url('/std_info_edit')}}/{{Auth::guard('students')->user()->student_type}}/{{Auth::guard('students')->user()->student_id}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit"></i></span><span class="pcoded-mtext">Edit Your Info</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
-                </li>
-                @endif
-                @if($check->payment == 1)
-                <li class="nav-item">
-                    <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
                 </li>
                 @endif
                 @else
@@ -69,18 +68,18 @@ else
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('ex_students')->where('registration_id',$id)->first();
                 @endphp
-                @if($check->payment == 0)
+                @if($check->payment == 1 && $tran_id == $bank_id)
+                <li class="nav-item">
+                    <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
+                </li>
+                @else
                 <li class="nav-item">
                     <a href="{{url('/std_info_edit')}}/{{Auth::guard('students')->user()->student_type}}/{{Auth::guard('students')->user()->student_id}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit"></i></span><span class="pcoded-mtext">Edit Your Info</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
                 </li>
-                @endif
-                @if($check->payment == 1)
-                <li class="nav-item">
-                    <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
-                </li>
+
                 @endif
                 @endif
 
