@@ -64,12 +64,6 @@
                             <input type="text" class="form-control" id="total_member" readonly value="3000">
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="input-single-box">
-                            <label>অনলাইন চার্জ</label>
-                            <input type="text" class="form-control" id="total_member" readonly value="25">
-                        </div>
-                    </div>
                     @php 
                     $total_ammount = $data->total_ammount;
 
@@ -77,6 +71,12 @@
 
                     $total_taka = $total_ammount + $online_charge;
                     @endphp
+                    <div class="col-lg-6 col-12">
+                        <div class="input-single-box">
+                            <label>অনলাইন চার্জ</label>
+                            <input type="text" class="form-control" id="total_member" readonly value="{{$online_charge}}">
+                        </div>
+                    </div>
                     <div class="col-lg-6 col-12">
                         <div class="input-single-box">
                             <label>পরিশোধ করার পরিমাণ</label>

@@ -66,13 +66,26 @@
                                 <input type="text" class="form-control" id="total_member" readonly value="{{$data->total_member}}">
                             </div>
                         </div>
+                        @php 
+                        $total_ammount = $data->total_ammount;
+                        $charge =  Auth::guard('students')->user()->student_type==1?25:75;
+                        $online_charge = $data->total_member *$charge;
+
+                        $total_taka = $total_ammount + $online_charge;
+                        @endphp
                         <div class="col-lg-6 col-12">
                             <div class="input-single-box">
-                                <label>পরিশোধ করার পরিমাণ</label>
-                                <input type="text" class="form-control" id="total_amount" readonly value="{{$data->total_ammount}}">
+                                <label>অনলাইন চার্জ</label>
+                                <input type="text" class="form-control" id="total_amount" readonly value="{{$online_charge}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-12">
+                            <div class="input-single-box">
+                                <label>পরিশোধ করার পরিমাণ</label>
+                                <input type="text" class="form-control" id="total_amount" readonly value="{{$total_taka}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-12">
                             <div class="input-single-box">
                                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                                 token="if you have any token validation"
