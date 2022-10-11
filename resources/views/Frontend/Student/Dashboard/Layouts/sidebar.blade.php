@@ -54,7 +54,7 @@ else
                 $bank_id = DB::table('ssl_commerz_pay_infos')->where('value_b',$check->registration_id)->pluck('bank_tran_id')->first();
                 try {
                     //code...
-                    $tran_id = decrypt($check->tran_id)??'null';
+                    $tran_id = decrypt($check->tran_id);
                 } catch (\Throwable $th) {
                     //throw $th;
                     $tran_id=null;
