@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\present_students;
 use App\Models\ex_students;
+use App\Models\pay_success_info;
 use App\Models\SslCommerzPay_info;
 use Illuminate\Support\Facades\Crypt;
 
@@ -83,19 +84,21 @@ class SslCommerzPaymentController extends Controller
         // echo "Transaction is Successful";
         // dd($request->all());
         $tran_id = $request->input('tran_id');
+        $bank_tran_id = $request->input('bank_tran_id');
         $amount = $request->input('amount');
         $currency = $request->input('currency');
         $mobile = $request->input('value_a');
         $reg_id = $request->input('value_b');
-        $reg_type = $request->input('value_c');
+        $std_type = $request->input('value_c');
+        $card_issuer = $request->input('card_issuer');
 
         $sslc = new SslCommerzNotification();
 
         #Check order status in order tabel against the transaction id or order id.
-        if ($reg_type == 'ex') {
+        if ($std_type == 'ex') {
 
             $order_details = ex_students::where('phone', $mobile)->first();
-        } elseif ($reg_type == 'present') {
+        } elseif ($std_type == 'present') {
 
             $order_details = present_students::where('phone', $mobile)->first();
         }
@@ -110,21 +113,31 @@ class SslCommerzPaymentController extends Controller
                 Here you can also sent sms or email for successfull transaction to customer
                 */
                 $ssl = SslCommerzPay_info::create($request->all());
-                if ($reg_type == 'ex') {
+                $insert_amount = pay_success_info::create([
+                    'tran_id' => Crypt::encrypt($bank_tran_id),
+                    'reg_id' => $reg_id,
+                    'mobile' => $mobile,
+                    'payment_date_time' => date('Y-m-d h:i:s'),
+                    'payment_date' => date('Y-m-d'),
+                    'amount' => $amount,
+                    'pay_type' => $card_issuer,
+                    'std_type' => $std_type,
+                ]);
+                if ($std_type == 'ex') {
 
                     $update_fees = ex_students::where('phone', $mobile)
                         ->update([
                             'payment' => 1,
                             'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            'tran_id' => Crypt::encrypt($bank_tran_id),
                         ]);
-                } elseif ($reg_type == 'present') {
+                } elseif ($std_type == 'present') {
 
                     $update_fees = present_students::where('phone', $mobile)
                         ->update([
                             'payment' => 1,
                             'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            'tran_id' => Crypt::encrypt($bank_tran_id),
                         ]);
                 }
 
@@ -136,21 +149,21 @@ class SslCommerzPaymentController extends Controller
                 */
                 $ssl = SslCommerzPay_info::create($request->all());
 
-                if ($reg_type == 'ex') {
+                if ($std_type == 'ex') {
 
                     $update_fees = ex_students::where('phone', $mobile)
                         ->update([
                             'payment' => 0,
-                            'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            // 'payment_date' => date('Y-m-d h:i:s'),
+                            // 'tran_id' => Crypt::encrypt($bank_tran_id),
                         ]);
-                } elseif ($reg_type == 'present') {
+                } elseif ($std_type == 'present') {
 
                     $update_fees = present_students::where('phone', $mobile)
                         ->update([
                             'payment' => 0,
-                            'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                            // 'payment_date' => date('Y-m-d h:i:s'),
+                            // 'tran_id' => Crypt::encrypt($bank_tran_id),
                         ]);
                 }
                 return redirect('/')->with('warning', 'validation Fail');
@@ -169,35 +182,36 @@ class SslCommerzPaymentController extends Controller
     public function fail(Request $request)
     {
         $tran_id = $request->input('tran_id');
+        $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
         $reg_id = $request->input('value_b');
-        $reg_type = $request->input('value_c');
-
-        if ($reg_type == 'ex') {
+        $std_type = $request->input('value_c');
+        // dd($request->all());
+        if ($std_type == 'ex') {
 
             $order_details = ex_students::where('phone', $mobile)->first();
-        } elseif ($reg_type == 'present') {
+        } elseif ($std_type == 'present') {
 
             $order_details = present_students::where('phone', $mobile)->first();
         }
-
+        // dd($order_details);
         if ($order_details->payment == '0') {
             $ssl = SslCommerzPay_info::create($request->all());
-            if ($reg_type == 'ex') {
+            if ($std_type == 'ex') {
 
                 $update_fees = ex_students::where('phone', $mobile)
                     ->update([
                         'payment' => 0,
-                        'payment_date' => date('Y-m-d h:i:s'),
-                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        // 'payment_date' => date('Y-m-d h:i:s'),
+                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
                     ]);
-            } elseif ($reg_type == 'present') {
+            } elseif ($std_type == 'present') {
 
                 $update_fees = present_students::where('phone', $mobile)
                     ->update([
                         'payment' => 0,
-                        'payment_date' => date('Y-m-d h:i:s'),
-                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        // 'payment_date' => date('Y-m-d h:i:s'),
+                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
                     ]);
             }
 
@@ -212,34 +226,35 @@ class SslCommerzPaymentController extends Controller
     public function cancel(Request $request)
     {
         $tran_id = $request->input('tran_id');
+        $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
         $reg_id = $request->input('value_b');
-        $reg_type = $request->input('value_c');
+        $std_type = $request->input('value_c');
 
-        if ($reg_type == 'ex') {
+        if ($std_type == 'ex') {
 
             $order_details = ex_students::where('phone', $mobile)->first();
-        } elseif ($reg_type == 'present') {
+        } elseif ($std_type == 'present') {
 
             $order_details = present_students::where('phone', $mobile)->first();
         }
         if ($order_details->payment == '0') {
             $ssl = SslCommerzPay_info::create($request->all());
-            if ($reg_type == 'ex') {
+            if ($std_type == 'ex') {
 
                 $update_fees = ex_students::where('phone', $mobile)
                     ->update([
                         'payment' => 0,
-                        'payment_date' => date('Y-m-d h:i:s'),
-                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        // 'payment_date' => date('Y-m-d h:i:s'),
+                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
                     ]);
-            } elseif ($reg_type == 'present') {
+            } elseif ($std_type == 'present') {
 
                 $update_fees = present_students::where('phone', $mobile)
                     ->update([
                         'payment' => 0,
-                        'payment_date' => date('Y-m-d h:i:s'),
-                        'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                        // 'payment_date' => date('Y-m-d h:i:s'),
+                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
                     ]);
             }
             return redirect('/')->with('error', 'Transaction is Cancel');
@@ -257,16 +272,18 @@ class SslCommerzPaymentController extends Controller
         {
 
             $tran_id = $request->input('tran_id');
+            $bank_tran_id = $request->input('bank_tran_id');
             $amount = $request->input('amount');
             $currency = $request->input('currency');
             $mobile = $request->input('value_a');
             $reg_id = $request->input('value_b');
-            $reg_type = $request->input('value_c');
+            $std_type = $request->input('value_c');
+            $card_issuer = $request->input('card_issuer');
 
-            if ($reg_type == 'ex') {
+            if ($std_type == 'ex') {
 
                 $order_details = ex_students::where('phone', $mobile)->first();
-            } elseif ($reg_type == 'present') {
+            } elseif ($std_type == 'present') {
 
                 $order_details = present_students::where('phone', $mobile)->first();
             }
@@ -281,21 +298,31 @@ class SslCommerzPaymentController extends Controller
                     Here you can also sent sms or email for successful transaction to customer
                     */
                     $ssl = SslCommerzPay_info::create($request->all());
-                    if ($reg_type == 'ex') {
+                    $insert_amount = pay_success_info::create([
+                        'tran_id' => Crypt::encrypt($bank_tran_id),
+                        'reg_id' => $reg_id,
+                        'mobile' => $mobile,
+                        'payment_date_time' => date('Y-m-d h:i:s'),
+                        'payment_date' => date('Y-m-d'),
+                        'amount' => $amount,
+                        'pay_type' => $card_issuer,
+                        'std_type' => $std_type,
+                    ]);
+                    if ($std_type == 'ex') {
 
                         $update_fees = ex_students::where('phone', $mobile)
                             ->update([
                                 'payment' => 1,
                                 'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                                'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
-                    } elseif ($reg_type == 'present') {
+                    } elseif ($std_type == 'present') {
 
                         $update_fees = present_students::where('phone', $mobile)
                             ->update([
                                 'payment' => 1,
                                 'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                                'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
                     }
                     return redirect('/')->with('success', 'Transaction is successfully Completed');
@@ -305,21 +332,21 @@ class SslCommerzPaymentController extends Controller
                     Here you need to update order status as Failed in order table.
                     */
                     $ssl = SslCommerzPay_info::create($request->all());
-                    if ($reg_type == 'ex') {
+                    if ($std_type == 'ex') {
 
                         $update_fees = ex_students::where('phone', $mobile)
                             ->update([
                                 'payment' => 0,
-                                'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                                // 'payment_date' => date('Y-m-d h:i:s'),
+                                // 'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
-                    } elseif ($reg_type == 'present') {
+                    } elseif ($std_type == 'present') {
 
                         $update_fees = present_students::where('phone', $mobile)
                             ->update([
                                 'payment' => 0,
-                                'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => $encrypted = Crypt::encrypt($tran_id),
+                                // 'payment_date' => date('Y-m-d h:i:s'),
+                                // 'tran_id' => Crypt::encrypt($bank_tran_id),
                             ]);
                     }
                     return redirect('/')->with('warning', 'validation Fail');
