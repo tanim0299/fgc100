@@ -262,7 +262,7 @@ class RegistrationController extends Controller
         else
         {
 
-            return view('Frontend.User.present_payment', compact('data'));
+            return view('Frontend.User.ex_payment', compact('data'));
         }
     }
 }
