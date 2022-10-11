@@ -165,7 +165,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-  
+
 </script>
 
 <script type="text/javascript">
@@ -258,52 +258,25 @@
 </script>
 
 
-<script>
-// swal("Hello!", "Your Payment Is Already Done!", "error");
-$(document).ready(function() {
-			toastr.options = {
-				'closeButton': true,
-				'debug': false,
-				'newestOnTop': false,
-				'progressBar': false,
-				'positionClass': 'toast-top-right',
-				'preventDuplicates': false,
-				'showDuration': '1000',
-				'hideDuration': '1000',
-				'timeOut': '5000',
-				'extendedTimeOut': '1000',
-				'showEasing': 'swing',
-				'hideEasing': 'linear',
-				'showMethod': 'fadeIn',
-				'hideMethod': 'fadeOut',
-			}
-		});
+@if(Session::has('warning_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('warning_pay') }}', 'warning');
+  </script>
+  <?php Session::forget('warning_pay'); ?>
+@endif
+@if(Session::has('error_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('error_pay') }}', 'error');
+  </script>
+  <?php Session::forget('error_pay'); ?>
+@endif
+@if(Session::has('success_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('success_pay') }}', 'success');
+  </script>
+  <?php Session::forget('success_pay'); ?>
+@endif
 
-  @if(Session::has('success_pay'))
-    
-  swal("Congratulations!", "You Payment Is Successfull", "success");
-  @endif
-
-  @if(Session::has('error_pay'))
-  toastr.options =
-  swal("Oops!", "Something Went Wrong!", "error");
-  @endif
-
-  @if(Session::has('info_pay'))
-  swal("Hello!", "Your Payment Is Already Done!", "info");
-  @endif
-
-  @if(Session::has('warning_pay'))
-  swal("Hello!", "Your Payment Is Already Done!", "warning");
-  @endif
-
-  // toastr.error('You clicked Error Toast');
-</script>
-
-<script>
-
-
-</script>
 
 </body>
 </html>
