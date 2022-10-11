@@ -52,7 +52,13 @@ else
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('present_students')->where('registration_id',$id)->first();
                 $bank_id = DB::table('ssl_commerz_pay_infos')->where('value_b',$check->registration_id)->pluck('bank_tran_id')->first();
-                $tran_id = decrypt($check->tran_id)??'null';
+                try {
+                    //code...
+                    $tran_id = decrypt($check->tran_id)??'null';
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    $tran_id=null;
+                }
                 @endphp
                 @if($check->payment == 1 && $tran_id == $bank_id)
                 <li class="nav-item">
