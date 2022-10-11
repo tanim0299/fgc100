@@ -67,7 +67,7 @@
                     <div class="col-lg-4 col-12">
                         <div class="input-single-box">
                             <label>পরিশোধ করার পরিমাণ</label>
-                            <input type="text" class="form-control" id="total_amount" readonly value="1025">
+                            <input type="text" class="form-control" id="total_amount" readonly value="1025.64">
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
