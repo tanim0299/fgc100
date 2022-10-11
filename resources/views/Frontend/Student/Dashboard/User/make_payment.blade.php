@@ -43,7 +43,7 @@
             <div class="form-wrapper">
                 <div class="box">
                     <div class="bkash-logo" style="text-align: center">
-                        <img src="https://1000logos.net/wp-content/uploads/2021/02/Bkash-logo.png" alt="" class="img-fluid" height="200px" width="200px">
+                        <img src="{{asset('public/assets/images')}}/ssl_logo.png" alt="" class="img-fluid">
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-12">
