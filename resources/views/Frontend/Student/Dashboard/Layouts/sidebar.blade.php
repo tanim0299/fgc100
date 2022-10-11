@@ -1,5 +1,6 @@
 <!-- [ navigation menu ] start -->
 @php
+
 $type = Auth::guard('students')->user()->student_type;
 if($type == 1)
 {
@@ -50,8 +51,9 @@ else
                 @php
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('present_students')->where('registration_id',$id)->first();
+                $bank_id = DB::table('ssl_commerz_pay_infos')->where('value_b',$check->registration_id)->pluck('bank_tran_id')->first();
                 @endphp
-                @if($check->payment == 1 && $tran_id == $bank_id)
+                @if($check->payment == 1 && decrypt($check->tran_id) == $bank_id)
                 <li class="nav-item">
                     <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
                 </li>
@@ -67,8 +69,9 @@ else
                 @php
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('ex_students')->where('registration_id',$id)->first();
+                $bank_id = DB::table('ssl_commerz_pay_infos')->where('value_b',$check->registration_id)->pluck('bank_tran_id')->first();
                 @endphp
-                @if($check->payment == 1 && $tran_id == $bank_id)
+                @if($check->payment == 1 && decrypt($tran_id) == $bank_id)
                 <li class="nav-item">
                     <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
                 </li>

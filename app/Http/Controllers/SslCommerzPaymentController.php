@@ -116,7 +116,7 @@ class SslCommerzPaymentController extends Controller
                 */
                 $ssl = SslCommerzPay_info::create($request->all());
                 $insert_amount = pay_success_info::create([
-                    'tran_id' => Crypt::encrypt($bank_tran_id),
+                    'tran_id' => encrypt($bank_tran_id),
                     'reg_id' => $reg_id,
                     'mobile' => $mobile,
                     'payment_date_time' => date('Y-m-d h:i:s'),
@@ -131,7 +131,7 @@ class SslCommerzPaymentController extends Controller
                         ->update([
                             'payment' => 1,
                             'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => Crypt::encrypt($bank_tran_id),
+                            'tran_id' => encrypt($bank_tran_id),
                         ]);
                 } elseif ($std_type == 'present') {
 
@@ -139,7 +139,7 @@ class SslCommerzPaymentController extends Controller
                         ->update([
                             'payment' => 1,
                             'payment_date' => date('Y-m-d h:i:s'),
-                            'tran_id' => Crypt::encrypt($bank_tran_id),
+                            'tran_id' => encrypt($bank_tran_id),
                         ]);
                 }
 
@@ -157,7 +157,7 @@ class SslCommerzPaymentController extends Controller
                         ->update([
                             'payment' => 0,
                             // 'payment_date' => date('Y-m-d h:i:s'),
-                            // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                            // 'tran_id' => encrypt($bank_tran_id),
                         ]);
                 } elseif ($std_type == 'present') {
 
@@ -165,7 +165,7 @@ class SslCommerzPaymentController extends Controller
                         ->update([
                             'payment' => 0,
                             // 'payment_date' => date('Y-m-d h:i:s'),
-                            // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                            // 'tran_id' => encrypt($bank_tran_id),
                         ]);
                 }
                 return redirect('/' . $std_dashboard)->with('warning_pay', 'validation Fail');
@@ -206,7 +206,7 @@ class SslCommerzPaymentController extends Controller
                     ->update([
                         'payment' => 0,
                         // 'payment_date' => date('Y-m-d h:i:s'),
-                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                        // 'tran_id' => encrypt($bank_tran_id),
                     ]);
             } elseif ($std_type == 'present') {
 
@@ -214,7 +214,7 @@ class SslCommerzPaymentController extends Controller
                     ->update([
                         'payment' => 0,
                         // 'payment_date' => date('Y-m-d h:i:s'),
-                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                        // 'tran_id' => encrypt($bank_tran_id),
                     ]);
             }
 
@@ -250,7 +250,7 @@ class SslCommerzPaymentController extends Controller
                     ->update([
                         'payment' => 0,
                         // 'payment_date' => date('Y-m-d h:i:s'),
-                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                        // 'tran_id' => encrypt($bank_tran_id),
                     ]);
             } elseif ($std_type == 'present') {
 
@@ -258,7 +258,7 @@ class SslCommerzPaymentController extends Controller
                     ->update([
                         'payment' => 0,
                         // 'payment_date' => date('Y-m-d h:i:s'),
-                        // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                        // 'tran_id' => encrypt($bank_tran_id),
                     ]);
             }
             return redirect('/' . $std_dashboard)->with('error_pay', 'Transaction is Cancel');
@@ -304,7 +304,7 @@ class SslCommerzPaymentController extends Controller
                     */
                     $ssl = SslCommerzPay_info::create($request->all());
                     $insert_amount = pay_success_info::create([
-                        'tran_id' => Crypt::encrypt($bank_tran_id),
+                        'tran_id' => encrypt($bank_tran_id),
                         'reg_id' => $reg_id,
                         'mobile' => $mobile,
                         'payment_date_time' => date('Y-m-d h:i:s'),
@@ -319,7 +319,7 @@ class SslCommerzPaymentController extends Controller
                             ->update([
                                 'payment' => 1,
                                 'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => Crypt::encrypt($bank_tran_id),
+                                'tran_id' => encrypt($bank_tran_id),
                             ]);
                     } elseif ($std_type == 'present') {
 
@@ -327,7 +327,7 @@ class SslCommerzPaymentController extends Controller
                             ->update([
                                 'payment' => 1,
                                 'payment_date' => date('Y-m-d h:i:s'),
-                                'tran_id' => Crypt::encrypt($bank_tran_id),
+                                'tran_id' => encrypt($bank_tran_id),
                             ]);
                     }
                     return redirect('/' . $std_dashboard)->with('success_pay', 'Transaction is successfully Completed');
@@ -343,7 +343,7 @@ class SslCommerzPaymentController extends Controller
                             ->update([
                                 'payment' => 0,
                                 // 'payment_date' => date('Y-m-d h:i:s'),
-                                // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                                // 'tran_id' => encrypt($bank_tran_id),
                             ]);
                     } elseif ($std_type == 'present') {
 
@@ -351,7 +351,7 @@ class SslCommerzPaymentController extends Controller
                             ->update([
                                 'payment' => 0,
                                 // 'payment_date' => date('Y-m-d h:i:s'),
-                                // 'tran_id' => Crypt::encrypt($bank_tran_id),
+                                // 'tran_id' => encrypt($bank_tran_id),
                             ]);
                     }
                     return redirect('/' . $std_dashboard)->with('warning_pay', 'validation Fail');
