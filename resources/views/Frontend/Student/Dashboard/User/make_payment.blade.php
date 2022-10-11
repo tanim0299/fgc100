@@ -108,6 +108,7 @@ obj.total_member = $('#total_member').val();
 obj.amount = $('#total_amount').val();
 obj.reg_id = $('#type').val();
 obj.type = $('#type').val();
+obj.std_dashboard = 'std_dashboard';
 
 $('#sslczPayBtn').prop('postdata', obj);
 

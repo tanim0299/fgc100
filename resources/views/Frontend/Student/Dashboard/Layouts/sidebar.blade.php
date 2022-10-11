@@ -1,12 +1,12 @@
 <!-- [ navigation menu ] start -->
-@php 
+@php
 $type = Auth::guard('students')->user()->student_type;
 if($type == 1)
 {
     $id = Auth::guard('students')->user()->student_id;
     $data = DB::table('present_students')->where('registration_id',$id)->first();
 }
-else 
+else
 {
     $id = Auth::guard('students')->user()->student_id;
     $data = DB::table('ex_students')->where('registration_id',$id)->first();
@@ -15,10 +15,10 @@ else
 <nav class="pcoded-navbar  ">
     <div class="navbar-wrapper  ">
         <div class="navbar-content scroll-div " >
-            
+
             <div class="">
                 <div class="main-menu-header">
-                    @php 
+                    @php
                     $path = public_path().'/Backend/Images/StudentImage/'.$data->image;
                     @endphp
                     @if(file_exists($path))
@@ -35,7 +35,7 @@ else
                     </ul>
                 </div>
             </div>
-            
+
             <ul class="nav pcoded-inner-navbar ">
                 <li class="nav-item pcoded-menu-caption">
                     <label>Navigation</label>
@@ -47,7 +47,7 @@ else
                 $type = Auth::guard('students')->user()->student_type;
                 @endphp
                 @if($type == 1)
-                @php 
+                @php
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('present_students')->where('registration_id',$id)->first();
                 @endphp
@@ -65,7 +65,7 @@ else
                 </li>
                 @endif
                 @else
-                @php 
+                @php
                 $id = Auth::guard('students')->user()->student_id;
                 $check = DB::table('ex_students')->where('registration_id',$id)->first();
                 @endphp
@@ -86,15 +86,15 @@ else
 
 
             </ul>
-            
+
         </div>
     </div>
 </nav>
 <!-- [ navigation menu ] end -->
 <!-- [ Header ] start -->
 <header class="navbar pcoded-header navbar-expand-lg navbar-light header-dark">
-		
-			
+
+
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         <a href="{{url('/std_dashboard')}}" class="b-brand">
@@ -131,7 +131,7 @@ else
                         </ul>
                     </div>
                 </div> --}}
-            
+
         </ul>
         <ul class="navbar-nav ml-auto">
             <li>
@@ -139,10 +139,10 @@ else
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="feather icon-user"></i>
                     </a>
-                    
+
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            @php 
+                            @php
                             $path = public_path().'/Backend/Images/StudentImage/'.$data->image;
                             @endphp
                             @if(file_exists($path))
@@ -158,6 +158,6 @@ else
             </li>
         </ul>
     </div>
-    
+
 
 </header>
