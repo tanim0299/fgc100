@@ -68,7 +68,7 @@
                         </div>
                         @php
                         $total_ammount = $data->total_ammount;
-                        $charge =  Auth::guard('students')->user()->student_type==1?25:75;
+                        $charge =  Auth::guard('students')->user()->student_type==1?25.64:76.92;
                         $online_charge = $data->total_member *$charge;
 
                         $total_taka = $total_ammount + $online_charge;

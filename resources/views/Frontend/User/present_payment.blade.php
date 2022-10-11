@@ -61,7 +61,7 @@
                     <div class="col-lg-4 col-12">
                         <div class="input-single-box">
                             <label>অনলাইন চার্জ</label>
-                            <input type="text" class="form-control" readonly value="25">
+                            <input type="text" class="form-control" readonly value="25.64">
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">

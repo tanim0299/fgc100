@@ -67,7 +67,7 @@
                     @php
                     $total_ammount = $data->total_ammount;
 
-                    $online_charge = $data->total_member * 75;
+                    $online_charge = $data->total_member * 76.92;
 
                     $total_taka = $total_ammount + $online_charge;
                     @endphp
