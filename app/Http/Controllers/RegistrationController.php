@@ -117,7 +117,7 @@ class RegistrationController extends Controller
             $sms = new AdnSmsNotification();
             $sms->sendSms($requestType, $message, $recipient, $messageType);
             // return 1;
-            return redirect('/present_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে। আপনার পাসওয়ার্ড হচ্চে' . $password);
+            return redirect('/present_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে');
         } else {
             return redirect()->back()->with('error', 'রেজিষ্ট্রেশন সম্পন্ন হয়নি। দয়া করে আবার দেখুন');
         }
