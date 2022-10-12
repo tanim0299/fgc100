@@ -119,10 +119,10 @@ label.font {
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-lg-3 col-md-3 col-6" id="input-box">
+                {{-- <div class="col-lg-3 col-md-3 col-6" id="input-box">
                     <label class="font">রেজিষ্ট্রেশন নম্বর(বোর্ড / বিশ্ববিদ্যালয় প্রদত্ত)</label>
                     <input type="number" class="form-control" name="registration_number" value="{{old('registration_number')}}">
-                </div>
+                </div> --}}
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
                     <label class="font">রোল নম্বর(বোর্ড / বিশ্ববিদ্যালয় প্রদত্ত)</label>
                     <input type="number" class="form-control" name="roll_number" value="{{old('roll_number')}}">
