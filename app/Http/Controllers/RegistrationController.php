@@ -11,6 +11,7 @@ use Auth;
 use DB;
 use Hash;
 use Image;
+use App\Lib\Adnsms\lib\AdnSmsNotification;
 
 class RegistrationController extends Controller
 {
@@ -109,7 +110,12 @@ class RegistrationController extends Controller
                 'password' => Hash::make($password),
                 'pass_recover' => $password,
             ]);
-
+            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . '';
+            $recipient = $request->phone;       // For SINGLE_SMS or OTP
+            $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
+            $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
+            $sms = new AdnSmsNotification();
+            $sms->sendSms($requestType, $message, $recipient, $messageType);
             // return 1;
             return redirect('/present_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে। আপনার পাসওয়ার্ড হচ্চে' . $password);
         } else {
@@ -190,6 +196,13 @@ class RegistrationController extends Controller
                 'pass_recover' => $password,
             ]);
 
+            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . '';
+            $recipient = $request->phone;       // For SINGLE_SMS or OTP
+            $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
+            $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
+            $sms = new AdnSmsNotification();
+            $sms->sendSms($requestType, $message, $recipient, $messageType);
+
             if ($request->family_member == 'yes') {
                 $insertFamily = family_member_info::create([
                     'student_id' => $registration_id,
@@ -242,12 +255,9 @@ class RegistrationController extends Controller
     public function presentpayment($id)
     {
         $data = present_students::find($id);
-        if($data->payment == 1)
-        {
+        if ($data->payment == 1) {
             return redirect('/');
-        }
-        else
-        {
+        } else {
 
             return view('Frontend.User.present_payment', compact('data'));
         }
@@ -255,12 +265,9 @@ class RegistrationController extends Controller
     public function expayment($id)
     {
         $data = ex_students::find($id);
-        if($data->payment == 1)
-        {
+        if ($data->payment == 1) {
             return redirect('/');
-        }
-        else
-        {
+        } else {
 
             return view('Frontend.User.ex_payment', compact('data'));
         }
