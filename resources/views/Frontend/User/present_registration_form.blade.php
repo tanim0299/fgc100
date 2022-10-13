@@ -152,7 +152,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>মোবাইল (+88 ব্যতিত)</label> <span></span>
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required id="present_phone">
+                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required id="phone_number">
                     @error('phone')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
