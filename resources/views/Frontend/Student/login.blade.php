@@ -66,6 +66,10 @@
 					
                     {{-- <a href="{{url('/std_dashboard')}}" class="login100-form-btn">Login</a> --}}
                     <input type="submit" value="Login" class="login100-form-btn">
+					<div class="mt-5">
+						<label>Forget Your Passowrd ?</label><a href="{{url('/foget_pass')}}">Reset Now</a>
+					</div>
+
 				</form>
 			</div>
 		</div>

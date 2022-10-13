@@ -40,7 +40,6 @@ class RegistrationController extends Controller
                 'fathers_name' => 'required',
                 'mothers_name' => 'required',
                 'gender' => 'required',
-                'roll_number' => 'required',
                 'session' => 'required',
             ],
             [
@@ -52,7 +51,6 @@ class RegistrationController extends Controller
                 'fathers_name.required' => 'আপনার পিতার নাম দিন',
                 'mothers_name.required' => 'আপনার মাতার নাম দিন',
                 'gender.required' => 'লিঙ্গ নির্বাচন করুন',
-                'roll_number.required' => 'রোল নম্বর দিন',
                 'session.required' => 'আপনার শিক্ষাবর্ষ দিন',
             ]
         );
@@ -288,5 +286,9 @@ class RegistrationController extends Controller
         {
             return 1;
         }
+    }
+
+    public function foget_pass(){
+        return view('');
     }
 }

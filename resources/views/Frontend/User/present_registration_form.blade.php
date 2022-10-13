@@ -115,7 +115,7 @@
                     <input type="text" name="admisson_time_classroll" class="form-control" value="{{old('admisson_time_classroll')}}">
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
-                    <label>ভর্তির সন</label> <span></span>
+                    <label>ভর্তির সন <span>(ইংরেজীতে)</span>
                     <input type="text" name="admission_year" class="form-control" value="{{old('admission_year')}}">
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
@@ -138,13 +138,10 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>রোল (বোর্ড / জাতীয় বিশ্ববিদ্যালয় কর্তৃক প্রদত্ত)</label> <span>( যদি থাকে )</span>
-                    <input type="text" class="form-control" name="roll_number" value="{{old('roll_number')}}" required>
-                    @error('roll_number')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                    <input type="text" class="form-control" name="roll_number" value="{{old('roll_number')}}">
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
-                    <label>শিক্ষাবর্ষ</label> <span></span>
+                    <label>শিক্ষাবর্ষ <span>(ইংরেজীতে)</span>
                     <input type="text" class="form-control" name="session" value="{{old('session')}}" required>
                     @error('session')
                         <div class="alert alert-danger">{{ $message }}</div>

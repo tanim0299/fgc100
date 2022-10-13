@@ -77,6 +77,9 @@ Route::get('/ex_payment/{id}', [RegistrationController::class, 'expayment']);
 
 Route::post('/check_phone', [RegistrationController::class, 'check_phone']);
 
+
+Route::get('/foget_pass', [RegistrationController::class, 'foget_pass']);
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -128,11 +128,11 @@ label.font {
                     <input type="number" class="form-control" name="roll_number" value="{{old('roll_number')}}">
                 </div>
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
-                    <label>পাসের সন</label>
+                    <label>পাসের সন </label><span>(ইংরেজীতে)</span>
                     <input type="number" class="form-control" name="passing_year" value="{{old('passing_year')}}">
                 </div>
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
-                    <label>শিক্ষাবর্ষ</label>
+                        <label>শিক্ষাবর্ষ </label><span>(ইংরেজীতে)</span>
                     <input type="number" class="form-control" name="session" value="{{old('session')}}">
                 </div>
 
