@@ -79,6 +79,12 @@ Route::post('/check_phone', [RegistrationController::class, 'check_phone']);
 
 
 Route::get('/foget_pass', [RegistrationController::class, 'foget_pass']);
+Route::post('/verify_number', [RegistrationController::class, 'verify_number']);
+
+Route::get('/otp/{phone}', [RegistrationController::class, 'otp']);
+Route::post('/verify_otp', [RegistrationController::class, 'verify_otp']);
+Route::get('/change_pass/{id}', [RegistrationController::class, 'change_pass']);
+Route::post('/change_password', [RegistrationController::class, 'change_password']);
 
 Auth::routes();
 
@@ -91,7 +97,7 @@ Route::post('/mainMenuStore', [mainmenuController::class, 'store']);
 Route::get('/viewMainMenu', [mainmenuController::class, 'view']);
 Route::get('/editMainMenu/{id}', [mainmenuController::class, 'edit']);
 Route::post('/mainMenuUpdate/{id}', [mainmenuController::class, 'update']);
-Route::get('/deleteMainMenu/{id}', [mainmenuController::class, 'delete']);
+Route::get('/deleteMainMenu/{phone}', [mainmenuController::class, 'delete']);
 
 
 

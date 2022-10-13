@@ -178,7 +178,7 @@ label.font {
                     @enderror
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
-                    <label>পরিবারের সদস্য আনতে ইচ্ছুক ?</label> <span>*(যদি থাকে)</span><br>
+                    <label>পরিবারের সদস্য আনতে ইচ্ছুক ? (বাবা / মা /স্বামী / স্ত্রী / ছেলে / মেয়ে )</label> <span>*(যদি থাকে)</span><br>
                     <select class="form-control" name="family_member" id="family_member">
                         <option value="0" disabled="" selected="">পরিবারে সদস্য নির্বাচন করুন</option>
                         <option value="yes">হ্যা</option>
