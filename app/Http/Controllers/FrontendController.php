@@ -117,7 +117,31 @@ class FrontendController extends Controller
         // dd($request->all());
         if(Auth::guard('students')->attempt(['phone'=>$request->phone,'password'=>$request->password]))
         {
-            return redirect('/std_dashboard');
+            $type = Auth::guard('students')->user()->type;
+            if($type == 1)
+            {
+                $check = present_students::where('phone',$request->phone)->first();
+                if($check->payment == 1)
+                {
+                    return redirect('/std_dashboard');
+                }
+                else
+                {
+                    return redirect('/make_payment');
+                }
+            }
+            else
+            {
+                $check = ex_students::where('phone',$request->phone)->first();
+                if($check->payment == 1)
+                {
+                    return redirect('/std_dashboard');
+                }
+                else
+                {
+                    return redirect('/make_payment');
+                }
+            }
         }
         else
         {

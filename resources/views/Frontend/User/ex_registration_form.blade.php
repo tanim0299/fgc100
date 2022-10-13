@@ -144,12 +144,14 @@ label.font {
                     <label>পদবি <span>*(যদি থাকে)</span></label>
                     <input type="text" class="form-control" name="designation" value="{{old('designation')}}">
                 </div>
-                <div class="col-lg-3 col-md-3 col-12" id="input-box">
-                    <label>মোবাইল</label> <span></span>
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required>
+                <div class="col-lg-4 col-md-4 col-12" id="input-box">
+                    <label>মোবাইল (+88 ব্যতিত)</label> <span></span>
+                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required id="phone_number">
                     @error('phone')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                    <div class="alert alert-danger" id="present_invalid_alert">এই নাম্বার দ্বারা রেজিষ্ট্রেশন সম্পন্ন হয়ে গিয়েছে</div>
+                    <div class="alert alert-success" id="present_success_alert">এই নাম্বার দ্বারা রেজিষ্ট্রেশন সম্পন্ন করা যাবে</div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>ই-মেইল</label> <span>*(যদি থাকে)</span>

@@ -201,6 +201,70 @@
   });
 </script> --}}
 
+<script>
+$(document).ready(function() {
+    $("input").attr({
+       "max" : 11,        // substitute your own
+       "min" : 11          // values (or variables) here
+    });
+});
+</script>
+
+
+<script>
+  $(document).ready(function(){
+
+    $('#present_invalid_alert').hide();
+    $('#present_success_alert').hide();
+
+    $('#phone_number').on('keyup',function(){
+
+      var phone_data = $('#phone_number').val();
+
+      var length = $('#phone_number').val().length;
+
+      // alert(length);
+      if(phone_data != ' ')
+      {
+        if(length == 11)
+      {
+        $.ajax({
+
+          headers:{
+              'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+          },
+
+          url : '{{url('/check_phone')}}',
+
+          type : 'POST',
+
+          data : {phone_data},
+
+          success : function(data)
+          {
+            if(data == 0)
+            {
+              $('#present_success_alert').hide();
+              $('#present_invalid_alert').show();
+              // $('#submit').prop('disabled',true);
+            }
+            else
+            {
+              $('#present_invalid_alert').hide();
+              $('#present_success_alert').show();
+              // $('#submit').prop('disabled',false);
+            }
+          }
+
+        });
+      }
+      }
+
+    });
+
+  });
+</script>
+
 
 
 <script>

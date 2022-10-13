@@ -47,6 +47,7 @@ class RegistrationController extends Controller
                 'name.required' => 'আপনার নাম দিন',
                 'phone.required' => 'আপনার মোবাইল নাম্বার দিন',
                 'phone.max' => 'মোবাইল নাম্বার সর্বোচ্চ ডিজিট ১১',
+                'phone.min' => 'মোবাইল নাম্বার সর্বনিম্ন ডিজিট ১১',
                 'phone.unique' => 'এই মোবাইল নাম্বারটি দ্বারা রেজিষ্ট্রেশন সম্পন্ন হয়েছে',
                 'fathers_name.required' => 'আপনার পিতার নাম দিন',
                 'mothers_name.required' => 'আপনার মাতার নাম দিন',
@@ -131,7 +132,7 @@ class RegistrationController extends Controller
         $validated = $request->validate(
             [
                 'name' => 'required',
-                'phone' => 'required|max:111|unique:ex_students|unique:student_users',
+                'phone' => 'required|max:11|min:11|unique:ex_students|unique:student_users',
                 'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
                 'family_member_image' => 'mimes:jpeg,png,jpg,gif|max:2048',
                 'fathers_name' => 'required',
@@ -141,6 +142,7 @@ class RegistrationController extends Controller
                 'name.required' => 'আপনার নাম দিন',
                 'phone.required' => 'আপনার মোবাইল নাম্বার দিন',
                 'phone.max' => 'মোবাইল নাম্বার সর্বোচ্চ ডিজিট ১১',
+                'phone.min' => 'মোবাইল নাম্বার সর্বনিম্ন ডিজিট ১১',
                 'phone.unique' => 'এই মোবাইল নাম্বারটি দ্বারা রেজিষ্ট্রেশন সম্পন্ন হয়েছে',
                 'fathers_name.required' => 'আপনার পিতার নাম দিন',
                 'mothers_name.required' => 'আপনার মাতার নাম দিন',
@@ -247,7 +249,7 @@ class RegistrationController extends Controller
             }
 
 
-            return redirect('/ex_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে। আপনার পাসওয়ার্ড হচ্চে' . $password);
+            return redirect('/ex_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে');
         }
     }
 
@@ -270,6 +272,21 @@ class RegistrationController extends Controller
         } else {
 
             return view('Frontend.User.ex_payment', compact('data'));
+        }
+    }
+
+
+    public function check_phone(Request $request)
+    {
+        $check = student_user::where('phone',$request->phone_data)->count();
+        
+        if($check == 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
         }
     }
 }

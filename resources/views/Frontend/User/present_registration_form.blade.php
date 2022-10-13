@@ -151,11 +151,13 @@
                     @enderror
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
-                    <label>মোবাইল</label> <span></span>
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required>
+                    <label>মোবাইল (+88 ব্যতিত)</label> <span></span>
+                    <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" required id="present_phone">
                     @error('phone')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                    <div class="alert alert-danger" id="present_invalid_alert">এই নাম্বার দ্বারা রেজিষ্ট্রেশন সম্পন্ন হয়ে গিয়েছে</div>
+                    <div class="alert alert-success" id="present_success_alert">এই নাম্বার দ্বারা রেজিষ্ট্রেশন সম্পন্ন করা যাবে</div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>ই-মেইল</label> <span> ( যদি থাকে )</span>

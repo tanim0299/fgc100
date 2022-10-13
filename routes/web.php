@@ -74,6 +74,9 @@ Route::post('/ex_registration', [RegistrationController::class, 'ex_registration
 Route::get('/present_payment/{id}', [RegistrationController::class, 'presentpayment']);
 Route::get('/ex_payment/{id}', [RegistrationController::class, 'expayment']);
 
+
+Route::post('/check_phone', [RegistrationController::class, 'check_phone']);
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
