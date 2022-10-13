@@ -29,7 +29,7 @@
 <body >
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
-    <div class="container-fluid">
+    <div class="container">
         <div class="header-wrapper">
             <div class="row">
                 <div class="col-12">
@@ -43,8 +43,8 @@
                           <span class="navbar-toggler-icon"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                          <ul class="navbar-nav mr-auto">
+                        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                          <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                               <a class="nav-link" href="{{url('/')}}">হোম <span class="sr-only">(current)</span></a>
                             </li>
@@ -75,17 +75,16 @@
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{url('/festival-gallery')}}">উৎসব গ্যালারী</a>
                               </li> --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/registered-students')}}">নিবন্ধনকৃত শিক্ষার্থীদের তথ্য</a>
-                              </li> 
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+                            
+                              <li class="nav-item">
+                                <a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
                               </li>
+                              
                             <li class="nav-item">
-                                <a class="nav-link btn btn-warning" href="{{url('/ex-registration-form')}}" style="color: white !important;">প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
+                                <a class="nav-link btn btn-warning btn-sm" href="{{url('/ex-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
                               </li>
                             <li class="nav-item" style="">
-                                <a class="nav-link btn btn-success" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
+                                <a class="nav-link btn btn-success btn-sm" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
                               </li>
                           </ul>
                         </div>

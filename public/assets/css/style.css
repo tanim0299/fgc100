@@ -1,3 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600&display=swap');
+
+body{
+    font-family: 'Noto Serif Bengali'!important;
+}
+
+
 *{padding: 0;margin: 0;}
 .logo img {
     max-width: 65px;
@@ -7,16 +15,16 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light {
     padding: 0px;
 }
 span, b , a, p, table, label, select, input {
-    font-family: 'AdorshoLipi', Arial, sans-serif !important;
+    font-family: 'Noto Serif Bengali', Arial, sans-serif !important;
 }
 .alert{
-    font-family: 'AdorshoLipi', Arial, sans-serif !important;
+    font-family: 'Noto Serif Bengali', Arial, sans-serif !important;
 }
 nav.navbar.navbar-expand-lg.navbar-light.bg-light {
     background: none !important;
 }
 
-ul.navbar-nav.mr-auto li {
+ul.navbar-nav.ml-auto li {
     padding: 0px 15px;
 }
 
