@@ -11,6 +11,7 @@ use App\Models\pay_success_info;
 use App\Models\SslCommerzPay_info;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use App\Lib\Adnsms\lib\AdnSmsNotification;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -142,8 +143,15 @@ class SslCommerzPaymentController extends Controller
                             'tran_id' => encrypt($bank_tran_id),
                         ]);
                 }
+                $message = 'Congratulations ! Your Payment  Successfully Done to Fgc100 Celebrtions';
+                $recipient = $mobile;       // For SINGLE_SMS or OTP
+                $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
+                $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
+                $sms = new AdnSmsNotification();
+                $sms->sendSms($requestType, $message, $recipient, $messageType);
 
-                return redirect('/' . $std_dashboard)->with('success_pay', 'Transaction is successfully Completed');
+
+                return redirect('/invoice')->with('success_pay', 'Transaction is successfully Completed');
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -173,7 +181,7 @@ class SslCommerzPaymentController extends Controller
         } else if ($order_details->payment == '1') {
 
             #That means Order status already updated. No need to udate database.
-            return redirect('/' . $std_dashboard)->with('warning_pay', 'Transaction is already successfully Completed');
+            return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
             return redirect('/' . $std_dashboard)->with('error_pay', 'Invalid Transaction');
@@ -330,7 +338,15 @@ class SslCommerzPaymentController extends Controller
                                 'tran_id' => encrypt($bank_tran_id),
                             ]);
                     }
-                    return redirect('/' . $std_dashboard)->with('success_pay', 'Transaction is successfully Completed');
+
+                    $message = 'Congratulations ! Your Payment  Successfully Done to Fgc100 Celebrtions';
+                    $recipient = $mobile;       // For SINGLE_SMS or OTP
+                    $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
+                    $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
+                    $sms = new AdnSmsNotification();
+                    $sms->sendSms($requestType, $message, $recipient, $messageType);
+
+                    return redirect('/invoice')->with('success_pay', 'Transaction is successfully Completed');
                 } else {
                     /*
                     That means IPN worked, but Transation validation failed.
@@ -360,7 +376,7 @@ class SslCommerzPaymentController extends Controller
 
                 #That means Order status already updated. No need to udate database.
 
-                return redirect('/' . $std_dashboard)->with('warning_pay', 'Transaction is already successfully Completed');
+                return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
             } else {
                 #That means something wrong happened. You can redirect customer to your product page.
 
