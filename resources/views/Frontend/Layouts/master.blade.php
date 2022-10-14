@@ -83,9 +83,27 @@
                             <li class="nav-item">
                                 <a class="nav-link btn btn-warning btn-sm" href="{{url('/ex-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
                               </li>
+                            @if(Auth::guard('students')->check())
+                            @php
+                            $type = Auth::guard('students')->user()->student_type;
+                            $id = Auth::guard('students')->user()->student_id;
+                            if($type == 1)
+                            {
+                              $data = DB::table('present_students')->where('registration_id',$id)->first();
+                            }
+                            else {
+                              $data = DB::table('ex_students')->where('registration_id',$id)->first();
+                            }
+                            @endphp
+                            <li class="nav-item" style="">
+                                <a class="nav-link btn btn-dark btn-sm" href="{{url('/std_dashboard')}}" style="color: white !important;"><i class="fa fa-user"></i> {{$data->name}}</a>
+                              </li>
+                            @else
                             <li class="nav-item" style="">
                                 <a class="nav-link btn btn-success btn-sm" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
                               </li>
+
+                              @endif
                           </ul>
                         </div>
                       </nav>
