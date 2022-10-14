@@ -101,6 +101,10 @@ else
                 @endif
                 @endif
 
+                <li class="nav-item">
+                    <a target="_blank" href="{{url('/invoice')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Money Reciept</span></a>
+                </li>
+
 
             </ul>
 

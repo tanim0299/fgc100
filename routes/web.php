@@ -67,6 +67,8 @@ Route::post('/ex_update_info/{id}', [FrontendController::class, 'ex_update_info'
 Route::post('/present_info_update/{id}', [FrontendController::class, 'present_info_update']);
 Route::get('/make_payment', [FrontendController::class, 'make_payment']);
 Route::get('/id_card', [FrontendController::class, 'id_card']);
+Route::get('/invoice', [FrontendController::class, 'invoice']);
+Route::get('/download_reciept', [FrontendController::class, 'download_reciept']);
 
 Route::post('/present_registration', [RegistrationController::class, 'present_registration']);
 Route::post('/ex_registration', [RegistrationController::class, 'ex_registration']);

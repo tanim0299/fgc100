@@ -22,6 +22,7 @@ use Exception;
 use Twilio\Rest\Client;
 use Auth;
 use DB;
+use PDF;
 class FrontendController extends Controller
 {
     public function index()
@@ -117,7 +118,7 @@ class FrontendController extends Controller
         // dd($request->all());
         if(Auth::guard('students')->attempt(['phone'=>$request->phone,'password'=>$request->password]))
         {
-            $type = Auth::guard('students')->user()->type;
+            $type = Auth::guard('students')->user()->student_type;
             if($type == 1)
             {
                 $check = present_students::where('phone',$request->phone)->first();
@@ -432,6 +433,56 @@ class FrontendController extends Controller
             return 1;
         }catch(Exception $e){
             //
+        }
+    }
+
+    public function invoice()
+    {
+        if(Auth::guard('students')->check())
+        {
+            if(Auth::guard('students')->user()->student_type == 1)
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = present_students::where('registration_id',$id)->first();
+                return view('Frontend.Student.Dashboard.User.invoice',compact('data'));
+            }
+            else
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = ex_students::where('registration_id',$id)->first();
+                
+                return view('Frontend.Student.Dashboard.User.invoice',compact('data','id','family'));
+            }
+        }
+        else
+        {
+            return redirect('/student_login');
+        }
+    }
+    public function download_reciept()
+    {
+        if(Auth::guard('students')->check())
+        {
+            if(Auth::guard('students')->user()->student_type == 1)
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = present_students::where('registration_id',$id)->first();
+
+                $pdf = PDF::loadVIew('Frontend.Student.Dashboard.User.invoice_download',compact('data'));
+                
+                return $pdf->stream('invoice.pdf');
+            }
+            else
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = ex_students::where('registration_id',$id)->first();
+                $pdf = PDF::loadVIew('Frontend.Student.Dashboard.User.invoice_download',compact('data','id','family'));
+                return $pdf->download('invoice.pdf');
+            }
+        }
+        else
+        {
+            return redirect('/student_login');
         }
     }
 }
