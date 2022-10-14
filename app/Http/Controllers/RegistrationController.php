@@ -109,6 +109,11 @@ class RegistrationController extends Controller
                 'password' => Hash::make($password),
                 'pass_recover' => $password,
             ]);
+
+            Auth::guard('students')
+                ->attempt(['phone' => $request->phone, 'password' => $password]);
+
+
             $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . 'Please Pay Your Registration Fee';
             $recipient = $request->phone;       // For SINGLE_SMS or OTP
             $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
@@ -195,6 +200,8 @@ class RegistrationController extends Controller
                 'password' => Hash::make($password),
                 'pass_recover' => $password,
             ]);
+            Auth::guard('students')
+                ->attempt(['phone' => $request->phone, 'password' => $password]);
 
             $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . 'Please Pay Your Registration Fee';
             $recipient = $request->phone;       // For SINGLE_SMS or OTP
@@ -276,34 +283,31 @@ class RegistrationController extends Controller
 
     public function check_phone(Request $request)
     {
-        $check = student_user::where('phone',$request->phone_data)->count();
-        
-        if($check == 1)
-        {
+        $check = student_user::where('phone', $request->phone_data)->count();
+
+        if ($check == 1) {
             return 0;
-        }
-        else
-        {
+        } else {
             return 1;
         }
     }
 
-    public function foget_pass(){
+    public function foget_pass()
+    {
         return view('Frontend.Student.reset_pass');
     }
 
     public function verify_number(Request $request)
     {
         // dd($request->all());
-        $check  = student_user::where('phone',$request->phone)->count();
+        $check  = student_user::where('phone', $request->phone)->count();
 
-        if($check == 1)
-        {
-            DB::table('reset_passwords')->where('phone',$request->phone)->delete();
+        if ($check == 1) {
+            DB::table('reset_passwords')->where('phone', $request->phone)->delete();
 
-            $otp = rand(1000,9999);
+            $otp = rand(1000, 9999);
 
-            $message = 'Your OTP is '. $otp;
+            $message = 'Your OTP is ' . $otp;
             $recipient = $request->phone;       // For SINGLE_SMS or OTP
             $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
             $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
@@ -311,71 +315,65 @@ class RegistrationController extends Controller
             $sms->sendSms($requestType, $message, $recipient, $messageType);
 
             DB::table('reset_passwords')->insert([
-                'phone'=>$request->phone,
-                'otp'=>$otp,
+                'phone' => $request->phone,
+                'otp' => $otp,
             ]);
 
 
-            return redirect('/otp/'.$request->phone);
-        }
-        else
-        {
-            return redirect()->back()->with('error','Your Phone Number Does Not Found');
+            return redirect('/otp/' . $request->phone);
+        } else {
+            return redirect()->back()->with('error', 'Your Phone Number Does Not Found');
         }
     }
 
     public function otp($phone)
     {
-        $data = DB::table('reset_passwords')->where('phone',$phone)->first();
-        return view('Frontend.Student.otp',compact('data'));
+        $data = DB::table('reset_passwords')->where('phone', $phone)->first();
+        return view('Frontend.Student.otp', compact('data'));
     }
     public function verify_otp(Request $request)
     {
-        $validated = $request->validate([
-            'otp'=>'required|max:4|min:4',
-        ],
-        [
-            'otp.required'=>'OTP Is Required',
-            'otp.max'=>'OTP Must Be At Least 4 Character',
-            'otp.min'=>'OTP Must Be At Least 4 Character ',
-        ]);
+        $validated = $request->validate(
+            [
+                'otp' => 'required|max:4|min:4',
+            ],
+            [
+                'otp.required' => 'OTP Is Required',
+                'otp.max' => 'OTP Must Be At Least 4 Character',
+                'otp.min' => 'OTP Must Be At Least 4 Character ',
+            ]
+        );
 
-        $check = DB::table('reset_passwords')->where('phone',$request->phone)->where('otp',$request->otp)->count();
-        if($check == 1)
-        {
-            return redirect('/change_pass/'.$request->phone);
+        $check = DB::table('reset_passwords')->where('phone', $request->phone)->where('otp', $request->otp)->count();
+        if ($check == 1) {
+            return redirect('/change_pass/' . $request->phone);
+        } else {
+            return redirect()->back()->with('error', 'OTP Does Not Matched');
         }
-        else
-        {
-            return redirect()->back()->with('error','OTP Does Not Matched');
-        }
-        
     }
     public function change_pass($phone)
     {
-        return view('Frontend.student.change_pwd',compact('phone'));
+        return view('Frontend.student.change_pwd', compact('phone'));
     }
     public function change_password(Request $request)
     {
         $validated = $request->validate([
-            'password'=>'required|max:4|min:4',
-        ],[
-            'password.required'=>'Password Is Required',
-            'password.max'=>'Password Must Be At Least 4 Character',
-            'password.min'=>'Password Must Be At Least 4 Character ',
+            'password' => 'required|max:4|min:4',
+        ], [
+            'password.required' => 'Password Is Required',
+            'password.max' => 'Password Must Be At Least 4 Character',
+            'password.min' => 'Password Must Be At Least 4 Character ',
         ]);
 
-        $update = student_user::where('phone',$request->phone)->update([
-            'password'=>Hash::make($request->password),
-            'pass_recover'=>$request->password,
+        $update = student_user::where('phone', $request->phone)->update([
+            'password' => Hash::make($request->password),
+            'pass_recover' => $request->password,
         ]);
 
-        if($update){
+        if ($update) {
             return redirect('/student_login');
-        }
-        else
-        {
-            return redirect()->back()->with('erorr','Something Went Wrong');
+        } else {
+            return redirect()->back()->with('erorr', 'Something Went Wrong');
         }
     }
 }
