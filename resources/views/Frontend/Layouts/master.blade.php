@@ -200,14 +200,7 @@
   });
 </script> --}}
 
-<script>
-$(document).ready(function() {
-    $("input").attr({
-       "max" : 11,        // substitute your own
-       "min" : 11          // values (or variables) here
-    });
-});
-</script>
+
 
 
 <script>

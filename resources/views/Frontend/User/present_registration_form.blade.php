@@ -122,10 +122,11 @@
                     <label>বর্তমান অধ্যয়নরত শ্রেণী</label> <span></span>
                     <select class="form-control" name="present_class" required>
                         <option value="" disabled="" selected="">শ্রেণী নির্বাচন করুন</option>
-                        <option {{old('present_class') === 'HSC' ? 'selected' : ''}} value="HSC">এইচ এস সি</option>
-                        <option {{old('present_class') === 'Degree' ? 'selected' : ''}} value="Degree">ডিগ্রী পাস কোর্স</option>
-                        <option {{old('present_class') === 'Honurs' ? 'selected' : ''}} value="Honurs">অনার্স</option>
-                        <option {{old('present_class') === 'Masters' ? 'selected' : ''}} value="Masters">মাষ্টার্স</option>
+                        <option {{old('last_class') === 'HSC' ? 'selected' : ''}} value="HSC">এইচ এস সি</option>
+                        <option {{old('last_class') === 'Degree' ? 'selected' : ''}} value="Degree">ডিগ্রী পাস কোর্স</option>
+                        <option {{old('last_class') === 'Honurs' ? 'selected' : ''}} value="Honurs">অনার্স</option>
+                        <option {{old('last_class') === 'Masters First Year' ? 'selected' : ''}} value="Masters First Year">মাষ্টার্স প্রথম পর্ব</option>
+                        <option {{old('last_class') === 'Masters Last Year' ? 'selected' : ''}} value="Masters Last Year">মাষ্টার্স শেষ পর্ব</option>
                         
                     </select>
                     @error('present_class')
