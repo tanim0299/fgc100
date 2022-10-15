@@ -23,7 +23,7 @@ else
                     $path = public_path().'/Backend/Images/StudentImage/'.$data->image;
                     @endphp
                     @if(file_exists($path))
-                    <img class="img-radius" src="{{asset('public')}}/Backend/Images/studentImage/{{$data->image}}" alt="User-Profile-Image">
+                    <img class="img-radius" src="{{asset('public')}}/Backend/Images/StudentImage/{{$data->image}}" alt="User-Profile-Image">
                     @endif
                     <div class="user-details">
                         <span>{{$data->name}}</span>
@@ -167,7 +167,7 @@ else
                             $path = public_path().'/Backend/Images/StudentImage/'.$data->image;
                             @endphp
                             @if(file_exists($path))
-                            <img src="{{asset('public')}}/Backend/Images/studentImage/{{$data->image}}" class="img-radius" alt="User-Profile-Image">
+                            <img src="{{asset('public')}}/Backend/Images/StudentImage/{{$data->image}}" class="img-radius" alt="User-Profile-Image">
                             @endif
                             <span>{{$data->name}}</span>
                             <a href="{{url('/student_logout')}}" class="dud-logout" title="Logout">

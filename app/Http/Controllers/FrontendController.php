@@ -451,7 +451,7 @@ class FrontendController extends Controller
                 $id = Auth::guard('students')->user()->student_id;
                 $data = ex_students::where('registration_id',$id)->first();
                 
-                return view('Frontend.Student.Dashboard.User.invoice',compact('data','id','family'));
+                return view('Frontend.Student.Dashboard.User.invoice',compact('data','id'));
             }
         }
         else

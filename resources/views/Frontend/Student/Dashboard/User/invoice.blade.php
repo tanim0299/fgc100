@@ -101,7 +101,7 @@ div#signle-box {
                         মোবাইল : <b>{{$data->phone}}</b>
                     </div>
                     <div class="col-6" id="signle-box">
-                        লিঙ্গ : <b>{{$data->gender}}</b>
+                        লিঙ্গ : <b style="text-transform:capitalize;">{{$data->gender}}</b>
                     </div>
                     @if(Auth::guard('students')->user()->student_type == 1)
                     {{-- for runnig student --}}

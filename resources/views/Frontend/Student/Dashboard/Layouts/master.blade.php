@@ -4,7 +4,8 @@
 <head>
     @include('Frontend.Student.Dashboard.Layouts.head')
 </head>
-<body class="" oncontextmenu="return false;">
+<!--oncontextmenu="return false;"-->
+<body class="" >
 	<!-- [ Pre-loader ] start -->
 	<div class="loader-bg">
 		<div class="loader-track">

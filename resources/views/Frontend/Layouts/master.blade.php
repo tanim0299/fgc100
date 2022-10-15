@@ -77,7 +77,8 @@
                               </li> --}}
                             
                               <li class="nav-item">
-                                <a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+                                <!--<a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>-->
+                                <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a>
                               </li>
                               
                             <li class="nav-item">

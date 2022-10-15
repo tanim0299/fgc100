@@ -28,14 +28,33 @@
 
   <div class="links">
     <li class="">
-        <a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+        <!--<a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>-->
+        <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a>
       </li>
     <li class="">
         <a class="nav-link btn btn-warning" href="{{url('/ex-registration-form')}}" style="color: white !important;">প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
       </li>
-    <li class="" style="">
-        <a class="nav-link btn btn-success" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
+    @if(Auth::guard('students')->check())
+    @php
+    $type = Auth::guard('students')->user()->student_type;
+    $id = Auth::guard('students')->user()->student_id;
+    if($type == 1)
+    {
+      $data = DB::table('present_students')->where('registration_id',$id)->first();
+    }
+    else {
+      $data = DB::table('ex_students')->where('registration_id',$id)->first();
+    }
+    @endphp
+    <li class="nav-item" style="">
+        <a class="nav-link btn btn-dark btn-sm" href="{{url('/std_dashboard')}}" style="color: white !important;"><i class="fa fa-user"></i> {{$data->name}}</a>
       </li>
+    @else
+    <li class="nav-item" style="">
+        <a class="nav-link btn btn-success btn-sm" href="{{url('/student_login')}}" style="color: white !important;"><i class="fa fa-user"></i> লগইন করুন</a>
+      </li>
+
+      @endif
   </div>
 
   {{-- news events --}}
