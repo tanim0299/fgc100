@@ -76,7 +76,7 @@
                         <div class="col-lg-6 col-12">
                             <div class="input-single-box">
                                 <label>অনলাইন চার্জ</label>
-                                <input type="text" class="form-control" id="total_amount" readonly value="{{$online_charge}}">
+                                <input type="text" class="form-control" id="online_charge" readonly value="{{$online_charge}}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-12">
