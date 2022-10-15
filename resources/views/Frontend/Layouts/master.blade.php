@@ -26,10 +26,10 @@
 
 </head>
 {{-- oncontextmenu="return false;" --}}
-<body >
+<body oncontextmenu="return false;">
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
-    <div class="container">
+    <div class="container-fluid">
         <div class="header-wrapper">
             <div class="row">
                 <div class="col-12">
@@ -77,8 +77,8 @@
                               </li> --}}
                             
                               <li class="nav-item">
-                                <!--<a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>-->
-                                <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a>
+                                <a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+                                {{-- <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a> --}}
                               </li>
                               
                             <li class="nav-item">

@@ -70,6 +70,8 @@ Route::get('/id_card', [FrontendController::class, 'id_card']);
 Route::get('/invoice', [FrontendController::class, 'invoice']);
 Route::get('/download_reciept', [FrontendController::class, 'download_reciept']);
 
+Route::get('/registration_procedure',[FrontendController::class,'vedio']);
+
 Route::post('/present_registration', [RegistrationController::class, 'present_registration']);
 Route::post('/ex_registration', [RegistrationController::class, 'ex_registration']);
 

@@ -485,4 +485,9 @@ class FrontendController extends Controller
             return redirect('/student_login');
         }
     }
+
+    public function vedio()
+    {
+        return view('Frontend.User.registraiton_procedure');
+    }
 }
