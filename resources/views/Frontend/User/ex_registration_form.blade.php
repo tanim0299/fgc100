@@ -129,11 +129,11 @@ label.font {
                 </div>
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
                     <label>পাসের সন </label><span>(ইংরেজীতে)</span>
-                    <input type="number" class="form-control" name="passing_year" value="{{old('passing_year')}}">
+                    <input type="text" class="form-control" name="passing_year" value="{{old('passing_year')}}" placeholder="EX:2009">
                 </div>
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
                         <label>শিক্ষাবর্ষ </label><span>(ইংরেজীতে)</span>
-                    <input type="number" class="form-control" name="session" value="{{old('session')}}">
+                    <input type="text" class="form-control" name="session" value="{{old('session')}}" placeholder="EX:2008-2009">
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">

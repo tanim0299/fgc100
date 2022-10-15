@@ -71,6 +71,9 @@ else
                 <li class="nav-item">
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
                 </li>
+                <li class="nav-item">
+                    <a target="_blank" href="{{url('/invoice')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Money Reciept</span></a>
+                </li>
                 @endif
                 @else
                 @php
@@ -98,12 +101,10 @@ else
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
                 </li>
 
+                
                 @endif
                 @endif
 
-                <li class="nav-item">
-                    <a target="_blank" href="{{url('/invoice')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Money Reciept</span></a>
-                </li>
 
 
             </ul>
