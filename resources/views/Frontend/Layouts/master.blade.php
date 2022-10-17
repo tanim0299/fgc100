@@ -120,7 +120,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-6">
-                    <div class="footer-logo">
+                    <div class="footer-logo" style="background-color:white;">
                         <img src="{{asset('public/assets/images')}}/logo.png" alt="" class="img-fluid">
                     </div>
                 </div>

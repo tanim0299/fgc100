@@ -37,7 +37,7 @@ class SslCommerzPaymentController extends Controller
 
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = $request->cus_name;
-        $post_data['cus_email'] = 'customer@mail.com';
+        $post_data['cus_email'] = $request->cus_name.'customer@demo.com';
         $post_data['cus_add1'] = 'Feni';
         $post_data['cus_add2'] = "";
         $post_data['cus_city'] = "";
