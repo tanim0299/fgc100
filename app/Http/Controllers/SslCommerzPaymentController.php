@@ -292,7 +292,7 @@ class SslCommerzPaymentController extends Controller
             $std_type = $request->input('value_c');
             $card_issuer = $request->input('card_issuer');
             $std_dashboard = $request->input('value_d') ?? '';
-
+            // dd($request->all());
             if ($std_type == 'ex') {
 
                 $order_details = ex_students::where('phone', $mobile)->first();
@@ -346,7 +346,7 @@ class SslCommerzPaymentController extends Controller
                     $sms = new AdnSmsNotification();
                     $sms->sendSms($requestType, $message, $recipient, $messageType);
 
-                    return redirect('/invoice')->with('success_pay', 'Transaction is successfully Completed');
+                    return response()->json(['success_pay'=>'Transaction is successfully Completed']);
                 } else {
                     /*
                     That means IPN worked, but Transation validation failed.
@@ -370,20 +370,22 @@ class SslCommerzPaymentController extends Controller
                                 // 'tran_id' => encrypt($bank_tran_id),
                             ]);
                     }
-                    return redirect('/' . $std_dashboard)->with('warning_pay', 'validation Fail');
+                    return response()->json(['warning'=>'validation Fail']);
                 }
             } else if ($order_details->payment == '1') {
 
                 #That means Order status already updated. No need to udate database.
 
-                return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
+                // return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
+                 return response()->json(['info'=>'Transaction is already successfully Completed']);
             } else {
                 #That means something wrong happened. You can redirect customer to your product page.
-
-                return redirect('/' . $std_dashboard)->with('error_pay', 'Invalid Transaction');
+                return response()->json(['error'=>'Invalid Transaction']);
+                // return redirect('/' . $std_dashboard)->with('error_pay', 'Invalid Transaction');
             }
         } else {
-            return redirect('/')->with('error_pay', 'Invalid Data');
+            return response()->json(['error'=>'Invalid Data']);
+            // return redirect('/')->with('error_pay', 'Invalid Data');
         }
     }
 }
