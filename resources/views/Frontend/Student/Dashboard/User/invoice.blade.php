@@ -11,6 +11,9 @@
         body{
     font-family: 'Noto Serif Bengali'!important;
 }
+.logo img {
+    max-width: 177px;
+}
 .payment_invoice {
     width: 591px;
     margin: auto;
@@ -36,7 +39,7 @@ div#top-header {
     padding: 10px;
 }
 .card-title {
-    background: rgb(224 105 45);
+    background: rgb(27 163 80);
     margin: 0px;
     padding: 5px;
     text-align: center;
@@ -65,72 +68,85 @@ div#signle-box {
         <div class="payment_invoice">
             <div class="payment-title">
                 <div class="row" id="top-header">
-                    <div class="col-2">
+                    <div class="col-12 text-center">
                         <div class="logo">
                             <img src="{{asset('public/assets/images')}}/logo.png" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-12">
                         <div class="title">
                             <b>ফেনী সরকারি কলেজ</b>
                             <p>শতবর্ষপূর্তি উদযাপন - ২০২২</p>
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="image">
-                            <img src="{{asset('public')}}/Backend/Images/StudentImage/{{$data->image}}" alt="Please Upload Image" class="img-fluid">
-                        </div>
+                        
                     </div>
                 </div>
             </div>
             <div class="card-title">
                 <b>পেমেন্ট রশিদ</b>
             </div>
-            <div class="invoice-body">
+            <div class="invoice-body mt-2">
                 <div class="row">
-                    <div class="col-6" id="signle-box">
-                        রেজিষ্ট্রেশন নাম্বার : <b>{{$data->registration_id}}</b>
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-6" id="signle-box">
+                                রেজিষ্ট্রেশন নাম্বার : <b>{{$data->registration_id}}</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                মোট সদস্য : <b>{{$data->total_member}}</b>
+                            </div>
+                            <div class="col-12" id="signle-box">
+                                নাম : <b>{{$data->name}}</b>
+                            </div>
+                            <div class="col-12" id="signle-box">
+                                মোবাইল : <b>{{$data->phone}}</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                লিঙ্গ : <b style="text-transform:capitalize;">{{$data->gender}}</b>
+                            </div>
+                            @if(Auth::guard('students')->user()->student_type == 1)
+                            {{-- for runnig student --}}
+                            <div class="col-6" id="signle-box">
+                                ক্লাস : <b>{{$data->present_class}}</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                রোল : <b>{{$data->roll_number}}</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                শিক্ষাবর্ষ : <b>{{$data->session}}</b>
+                            </div>
+                            
+                            {{-- for runnig student --}}
+                            @else
+                            {{-- for ex student --}}
+                            <div class="col-6" id="signle-box">
+                                সর্বশেষ যে শ্রেণীতে অধ্যয়ন করেছে : <b>{{$data->last_class}}</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                পাসের সন : <b>{{$data->passing_year}}</b>
+                            </div>
+                            {{-- for ex student --}}
+                            @endif
+                            <div class="col-6" id="signle-box">
+                                মোট টাকা : ৳ {{$data->total_ammount}}/-
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                পেমেন্ট : <b class="badge badge-success">Paid</b>
+                            </div>
+                            <div class="col-6" id="signle-box">
+                                 @php
+                                    $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                @endphp
+        						{!! $generator->getBarcode($data->registration_id, $generator::TYPE_CODE_128) !!}
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6" id="signle-box">
-                        মোট সদস্য : <b>{{$data->total_member}}</b>
-                    </div>
-                    <div class="col-12" id="signle-box">
-                        নাম : <b>{{$data->name}}</b>
-                    </div>
-                    <div class="col-12" id="signle-box">
-                        মোবাইল : <b>{{$data->phone}}</b>
-                    </div>
-                    <div class="col-6" id="signle-box">
-                        লিঙ্গ : <b style="text-transform:capitalize;">{{$data->gender}}</b>
-                    </div>
-                    @if(Auth::guard('students')->user()->student_type == 1)
-                    {{-- for runnig student --}}
-                    <div class="col-6" id="signle-box">
-                        ক্লাস : <b>{{$data->present_class}}</b>
-                    </div>
-                    <div class="col-6" id="signle-box">
-                        রোল : <b>{{$data->roll_number}}</b>
-                    </div>
-                    <div class="col-6" id="signle-box">
-                        শিক্ষাবর্ষ : <b>{{$data->session}}</b>
-                    </div>
-                    
-                    {{-- for runnig student --}}
-                    @else
-                    {{-- for ex student --}}
-                    <div class="col-6" id="signle-box">
-                        সর্বশেষ যে শ্রেণীতে অধ্যয়ন করেছে : <b>{{$data->last_class}}</b>
-                    </div>
-                    <div class="col-6" id="signle-box">
-                        পাসের সন : <b>{{$data->passing_year}}</b>
-                    </div>
-                    {{-- for ex student --}}
-                    @endif
-                    <div class="col-6" id="signle-box">
-                        মোট টাকা : ৳ {{$data->total_ammount}}/-
-                    </div>
-                    <div class="col-6" id="signle-box">
-                        পেমেন্ট : <b class="badge badge-success">Paid</b>
+                    <div class="col-2">
+                        <div class="image">
+                            <img src="{{asset('public')}}/Backend/Images/StudentImage/{{$data->image}}" alt="Please Upload Image" class="img-fluid" height="200px" width="190px">
+                        </div>
                     </div>
                 </div>
             </div>
