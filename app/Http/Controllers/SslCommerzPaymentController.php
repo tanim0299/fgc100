@@ -150,8 +150,18 @@ class SslCommerzPaymentController extends Controller
                 $sms = new AdnSmsNotification();
                 $sms->sendSms($requestType, $message, $recipient, $messageType);
 
+                if($std_type == 'ex')
+                {
+                    $ex_students = ex_students::where('phone',$mobile)->first();
+                    return redirect('/ex_invoice/'.$ex_students->registration_id)->with('success_pay', 'Transaction is successfully Completed');
+                }
+                elseif($std_type == 'present')
+                {
+                    $present_students = present_students::where('phone',$mobile)->first();
+                    return redirect('/present_invoice/'.$present_students->registration_id)->with('success_pay', 'Transaction is successfully Completed');
+                }
 
-                return redirect('/invoice')->with('success_pay', 'Transaction is successfully Completed');
+                // return redirect('/invoice')->with('success_pay', 'Transaction is successfully Completed');
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.

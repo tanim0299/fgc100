@@ -110,11 +110,10 @@ class RegistrationController extends Controller
                 'pass_recover' => $password,
             ]);
 
-            Auth::guard('students')
-                ->attempt(['phone' => $request->phone, 'password' => $password]);
+            
 
 
-            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . 'Please Pay Your Registration Fee';
+            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . ' Please Pay Your Registration Fee';
             $recipient = $request->phone;       // For SINGLE_SMS or OTP
             $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
             $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
@@ -200,10 +199,8 @@ class RegistrationController extends Controller
                 'password' => Hash::make($password),
                 'pass_recover' => $password,
             ]);
-            Auth::guard('students')
-                ->attempt(['phone' => $request->phone, 'password' => $password]);
 
-            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . 'Please Pay Your Registration Fee';
+            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . ' Please Pay Your Registration Fee';
             $recipient = $request->phone;       // For SINGLE_SMS or OTP
             $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
             $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"

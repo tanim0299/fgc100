@@ -68,6 +68,8 @@ Route::post('/present_info_update/{id}', [FrontendController::class, 'present_in
 Route::get('/make_payment', [FrontendController::class, 'make_payment']);
 Route::get('/id_card', [FrontendController::class, 'id_card']);
 Route::get('/invoice', [FrontendController::class, 'invoice']);
+Route::get('/ex_invoice/{id}', [FrontendController::class, 'ex_invoice']);
+Route::get('/present_invoice/{id}', [FrontendController::class, 'present_invoice']);
 Route::get('/download_reciept', [FrontendController::class, 'download_reciept']);
 
 Route::get('/registration_procedure',[FrontendController::class,'vedio']);

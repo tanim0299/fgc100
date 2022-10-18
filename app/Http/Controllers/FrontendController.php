@@ -444,7 +444,7 @@ class FrontendController extends Controller
             {
                 $id = Auth::guard('students')->user()->student_id;
                 $data = present_students::where('registration_id',$id)->first();
-                return view('Frontend.Student.Dashboard.User.invoice',compact('data'));
+                return view('Frontend.Student.Dashboard.User.invoice',compact('data','id'));
             }
             else
             {
@@ -489,5 +489,32 @@ class FrontendController extends Controller
     public function vedio()
     {
         return view('Frontend.User.registraiton_procedure');
+    }
+
+    public function ex_invoice($id)
+    {
+        $data = ex_students::where('registration_id',$id)->first();
+        if($data->payment == 1)
+        {
+
+            return view('Frontend.Student.Dashboard.User.ex_invoice',compact('data','id'));
+        }
+        else
+        {
+            return redirect('/')->with('error_pay', 'Your Payment Is Not Yet Done');
+        }
+    }
+    public function present_invoice($id)
+    {
+        $data = present_students::where('registration_id',$id)->first();
+        if($data->payment == 1)
+        {
+            
+            return view('Frontend.Student.Dashboard.User.present_invoice',compact('data','id'));
+        }
+        else
+        {
+            return redirect('/')->with('error_pay', 'Your Payment Is Not Yet Done');
+        }
     }
 }

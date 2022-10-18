@@ -106,20 +106,7 @@ div#signle-box {
                             <div class="col-6" id="signle-box">
                                 লিঙ্গ : <b style="text-transform:capitalize;">{{$data->gender}}</b>
                             </div>
-                            @if(Auth::guard('students')->user()->student_type == 1)
-                            {{-- for runnig student --}}
-                            <div class="col-6" id="signle-box">
-                                ক্লাস : <b>{{$data->present_class}}</b>
-                            </div>
-                            <div class="col-6" id="signle-box">
-                                রোল : <b>{{$data->roll_number}}</b>
-                            </div>
-                            <div class="col-6" id="signle-box">
-                                শিক্ষাবর্ষ : <b>{{$data->session}}</b>
-                            </div>
                             
-                            {{-- for runnig student --}}
-                            @else
                             {{-- for ex student --}}
                             <div class="col-6" id="signle-box">
                                 সর্বশেষ যে শ্রেণীতে অধ্যয়ন করেছে : <b>{{$data->last_class}}</b>
@@ -128,7 +115,7 @@ div#signle-box {
                                 পাসের সন : <b>{{$data->passing_year}}</b>
                             </div>
                             {{-- for ex student --}}
-                            @endif
+                            
                             <div class="col-6" id="signle-box">
                                 মোট টাকা : ৳ {{$data->total_ammount}}/-
                             </div>
@@ -157,8 +144,28 @@ div#signle-box {
         </div>
     </div>
 
-{{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if(Session::has('warning_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('warning_pay') }}', 'warning');
+  </script>
+
+@endif
+@if(Session::has('error_pay'))
+  <script>
+      swal('Oops!', '{{ Session::get('error_pay') }}', 'error');
+  </script>
+
+@endif
+@if(Session::has('success_pay'))
+  <script>
+      swal('Congratulations!', '{{ Session::get('success_pay') }}', 'success');
+  </script>
+
+@endif
 </body>
 </html>
