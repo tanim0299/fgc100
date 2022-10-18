@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Library\SslCommerz;
 
 class SslCommerzNotification extends AbstractSslCommerz
@@ -10,6 +9,7 @@ class SslCommerzNotification extends AbstractSslCommerz
     private $successUrl;
     private $cancelUrl;
     private $failedUrl;
+	private $ipnUrl;
     private $error;
 
     /**
@@ -61,13 +61,13 @@ class SslCommerzNotification extends AbstractSslCommerz
                 curl_setopt($handle, CURLOPT_URL, $requested_url);
                 curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 
-                if ($this->config['connect_from_localhost']) {
-                    curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 0);
-                    curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, 0);
-                } else {
-                    curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 2);
-                    curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, 2);
-                }
+                 if ($this->config['connect_from_localhost']) {
+                     curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 0);
+                     curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, 0);
+                 } else {
+                     curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, 2);
+                     curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, 2);
+                 }
 
 
                 $result = curl_exec($handle);
@@ -160,9 +160,9 @@ class SslCommerzNotification extends AbstractSslCommerz
             $new_data = array();
             if (!empty($pre_define_key)) {
                 foreach ($pre_define_key as $value) {
-                    //                    if (isset($post_data[$value])) {
-                    $new_data[$value] = ($post_data[$value]);
-                    //                    }
+//                    if (isset($post_data[$value])) {
+                        $new_data[$value] = ($post_data[$value]);
+//                    }
                 }
             }
             # ADD MD5 OF STORE PASSWORD
@@ -180,6 +180,7 @@ class SslCommerzNotification extends AbstractSslCommerz
             if (md5($hash_string) == $post_data['verify_sign']) {
 
                 return true;
+
             } else {
                 $this->error = "Verification signature not matched";
                 return false;
@@ -228,10 +229,8 @@ class SslCommerzNotification extends AbstractSslCommerz
         }
     }
 
-
-    protected function setSuccessUrl()
-    {
-        $this->successUrl = url('/') . $this->config['success_url'];
+	protected function setSuccessUrl() {
+		$this->successUrl = env('APP_URL') . $this->config['success_url'];
     }
 
     protected function getSuccessUrl()
@@ -239,9 +238,8 @@ class SslCommerzNotification extends AbstractSslCommerz
         return $this->successUrl;
     }
 
-    protected function setFailedUrl()
-    {
-        $this->failedUrl = url('/') . $this->config['failed_url'];
+	protected function setFailedUrl() {
+		$this->failedUrl = env('APP_URL') . $this->config['failed_url'];
     }
 
     protected function getFailedUrl()
@@ -249,9 +247,8 @@ class SslCommerzNotification extends AbstractSslCommerz
         return $this->failedUrl;
     }
 
-    protected function setCancelUrl()
-    {
-        $this->cancelUrl = url('/') . $this->config['cancel_url'];
+	protected function setCancelUrl() {
+		$this->cancelUrl = env('APP_URL') . $this->config['cancel_url'];
     }
 
     protected function getCancelUrl()
@@ -259,8 +256,15 @@ class SslCommerzNotification extends AbstractSslCommerz
         return $this->cancelUrl;
     }
 
-    public function setParams($requestData)
-    {
+	protected function setIPNUrl() {
+		$this->ipnUrl = env('APP_URL') . $this->config['ipn_url'];
+	}
+
+	protected function getIPNUrl() {
+		return $this->ipnUrl;
+	}
+
+	public function setParams($requestData) {
         ##  Integration Required Parameters
         $this->setRequiredInfo($requestData);
 
@@ -296,6 +300,7 @@ class SslCommerzNotification extends AbstractSslCommerz
         $this->setSuccessUrl();
         $this->setFailedUrl();
         $this->setCancelUrl();
+		$this->setIPNUrl();
 
         $this->data['success_url'] = $this->getSuccessUrl(); // string (255)	Mandatory - It is the callback URL of your website where user will redirect after successful payment (Length: 255)
         $this->data['fail_url'] = $this->getFailedUrl(); // string (255)	Mandatory - It is the callback URL of your website where user will redirect after any failure occure during payment (Length: 255)
@@ -308,8 +313,8 @@ class SslCommerzNotification extends AbstractSslCommerz
          * Type: string (255)
          * Important! Not mandatory, however better to use to avoid missing any payment notification - It is the Instant Payment Notification (IPN) URL of your website where SSLCOMMERZ will send the transaction's status (Length: 255).
          * The data will be communicated as SSLCOMMERZ Server to your Server. So, customer session will not work.
-         * */
-        $this->data['ipn_url'] = (isset($info['ipn_url'])) ? $info['ipn_url'] : null;
+		*/
+		$this->data['ipn_url'] = $this->getIPNUrl();
 
         /*
          * Type: string (30)
@@ -358,8 +363,8 @@ class SslCommerzNotification extends AbstractSslCommerz
         $this->data['emi_option'] = (isset($info['emi_option'])) ? $info['emi_option'] : null; // integer (1)	Mandatory - This is mandatory if transaction is EMI enabled and Value must be 1/0. Here, 1 means customer will get EMI facility for this transaction
         $this->data['emi_max_inst_option'] = (isset($info['emi_max_inst_option'])) ? $info['emi_max_inst_option'] : null; // integer (2)	Max instalment Option, Here customer will get 3,6, 9 instalment at gateway page
         $this->data['emi_selected_inst'] = (isset($info['emi_selected_inst'])) ? $info['emi_selected_inst'] : null; // integer (2)	Customer has selected from your Site, So no instalment option will be displayed at gateway page
-        $this->data['emi_allow_only'] = (isset($info['emi_allow_only'])) ? $info['emi_allow_only'] : 0;
-
+        $this->data['emi_allow_only'] = (isset($info['emi_allow_only'])) ? $info['emi_allow_only'] : 0; 
+        
         return $this->data;
     }
 
