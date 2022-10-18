@@ -15,9 +15,10 @@ use App\Lib\Adnsms\lib\AdnSmsNotification;
 
 class SslCommerzPaymentController extends Controller
 {
-
+    
     public function payViaAjax(Request $request)
     {
+        date_default_timezone_set('Asia/Dhaka');
         // return $request->all();
         $request = json_decode($request->cart_json);
         $type = $request->type;
@@ -83,6 +84,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
+        date_default_timezone_set('Asia/Dhaka');
         // echo "Transaction is Successful";
         // dd($request->all());
         $tran_id = $request->input('tran_id');
@@ -215,6 +217,7 @@ class SslCommerzPaymentController extends Controller
 
     public function fail(Request $request)
     {
+        date_default_timezone_set('Asia/Dhaka');
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
@@ -260,6 +263,7 @@ class SslCommerzPaymentController extends Controller
 
     public function cancel(Request $request)
     {
+        date_default_timezone_set('Asia/Dhaka');
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
@@ -303,6 +307,7 @@ class SslCommerzPaymentController extends Controller
 
     public function ipn(Request $request)
     {
+        date_default_timezone_set('Asia/Dhaka');
         #Received all the payement information from the gateway
         if ($request->input('tran_id')) #Check transation id is posted or not.
         {
