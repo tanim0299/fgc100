@@ -110,8 +110,8 @@ class SslCommerzPaymentController extends Controller
         }
         else
         {
-            $order_details = ex_students::where('phone', $mobile)->first();
-            if($order_details){
+            $order_details_ex = ex_students::where('phone', $mobile)->first();
+            if($order_details_ex){
                 $order_details = ex_students::where('phone', $mobile)->first();
             }else{
                 $order_details = present_students::where('phone', $mobile)->first();
@@ -333,8 +333,8 @@ class SslCommerzPaymentController extends Controller
         }
         else
         {
-            $order_details = ex_students::where('phone', $mobile)->first();
-            if($order_details){
+            $order_details_ex = ex_students::where('phone', $mobile)->first();
+            if($order_details_ex){
                 $order_details = ex_students::where('phone', $mobile)->first();
             }else{
                 $order_details = present_students::where('phone', $mobile)->first();
