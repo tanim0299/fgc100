@@ -12,6 +12,7 @@ use App\Models\SslCommerzPay_info;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Lib\Adnsms\lib\AdnSmsNotification;
+use Illuminate\Support\Facades\Log;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -159,6 +160,7 @@ class SslCommerzPaymentController extends Controller
                             'tran_id' => encrypt($bank_tran_id),
                         ]);
                 }
+                Log::info('=========direct to success payment=================');
                 $message = 'Congratulations ! Your Payment  Successfully Done to Fgc100 Celebrtions';
                 $recipient = $mobile;       // For SINGLE_SMS or OTP
                 $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
@@ -322,13 +324,22 @@ class SslCommerzPaymentController extends Controller
             $card_issuer = $request->input('card_issuer');
             $std_dashboard = $request->input('value_d') ?? '';
             // dd($request->all());
-            if ($std_type == 'ex') {
+             if ($std_type == 'ex') {
 
+            $order_details = ex_students::where('phone', $mobile)->first();
+        } elseif ($std_type == 'present') {
+
+            $order_details = present_students::where('phone', $mobile)->first();
+        }
+        else
+        {
+            $order_details = ex_students::where('phone', $mobile)->first();
+            if($order_details){
                 $order_details = ex_students::where('phone', $mobile)->first();
-            } elseif ($std_type == 'present') {
-
+            }else{
                 $order_details = present_students::where('phone', $mobile)->first();
             }
+        }
 
             if ($order_details->payment == '0') {
                 $sslc = new SslCommerzNotification();
@@ -371,6 +382,8 @@ class SslCommerzPaymentController extends Controller
                                 'tran_id' => encrypt($bank_tran_id),
                             ]);
                     }
+                    
+                    Log::info('=========ipn to success payment=================');
 
                     $message = 'Congratulations ! Your Payment  Successfully Done to Fgc100 Celebrtions';
                     $recipient = $mobile;       // For SINGLE_SMS or OTP
@@ -378,7 +391,7 @@ class SslCommerzPaymentController extends Controller
                     $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
                     $sms = new AdnSmsNotification();
                     $sms->sendSms($requestType, $message, $recipient, $messageType);
-
+                    
                     return response()->json(['success_pay'=>'Transaction is successfully Completed']);
                 } else {
                     /*
