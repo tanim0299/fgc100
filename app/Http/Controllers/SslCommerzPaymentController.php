@@ -105,6 +105,15 @@ class SslCommerzPaymentController extends Controller
 
             $order_details = present_students::where('phone', $mobile)->first();
         }
+        else
+        {
+            $order_details = ex_students::where('phone', $mobile)->first();
+            if($order_details){
+                $order_details = ex_students::where('phone', $mobile)->first();
+            }else{
+                $order_details = present_students::where('phone', $mobile)->first();
+            }
+        }
         if ($order_details->payment == '0') {
             // dd($order_details);
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency, $mobile);
