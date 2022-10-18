@@ -104,9 +104,15 @@
                             <select name="type" class="form-control">
                                 @if($data->type == 'main')
                                 <option value="main">Head Member</option>
+                                <option value="secretary">Secretary</option>
                                 <option value="general">General Member</option>
-                                @else 
+                                @elseif($data->type == 'secretary')
+                                <option value="secretary">Secretary</option>
                                 <option value="general">General Member</option>
+                                <option value="main">Head Member</option>
+                                @else
+                                <option value="general">General Member</option>
+                                <option value="secretary">Secretary</option>
                                 <option value="main">Head Member</option>
                                 @endif
                             </select>

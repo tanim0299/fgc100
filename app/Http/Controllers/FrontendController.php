@@ -48,11 +48,15 @@ class FrontendController extends Controller
                 ->where('type','main')
                 ->where('status',1)
                 ->first();
+        $secretary = member_info::where('committee_id',$id)
+                ->where('type','secretary')
+                ->where('status',1)
+                ->first();
         $general = member_info::where('committee_id',$id)
                    ->where('type','general')
                    ->where('status',1)
                    ->paginate(10);
-        return view('Frontend.User.advisors_panel',compact('main','comm','general'));
+        return view('Frontend.User.advisors_panel',compact('main','comm','general','secretary'));
     }
     public function convenior_committee()
     {
