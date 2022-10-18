@@ -61,7 +61,7 @@ class memberController extends Controller
                 $img = Image::make($request->file('image')->getRealPath());
 
 
-                $img->resize(100, 100, function ($constraint) {
+                $img->resize(400, 400, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path.'/'.$image_name);
 
@@ -141,7 +141,7 @@ class memberController extends Controller
                 $img = Image::make($request->file('image')->getRealPath());
 
 
-                $img->resize(100, 100, function ($constraint) {
+                $img->resize(400, 400, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path.'/'.$image_name);
                 member_info::where('id',$id)->update(['image'=>$image_name]);

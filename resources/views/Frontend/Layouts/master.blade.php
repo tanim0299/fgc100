@@ -25,8 +25,15 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 </head>
+<style>
+    .dropdown-menu {
+    height: 432px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+</style>
 {{-- oncontextmenu="return false;" --}}
-<body oncontextmenu="return false;">
+<body >
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
     <div class="container-fluid">

@@ -103,6 +103,7 @@
                             <label>Member Type</label> <span>(Required)</span>
                             <select name="type" class="form-control">
                                 <option value="general">General Member</option>
+                                <option value="secretary">Secretary</option>
                                 <option value="main">Head Member</option>
                             </select>
                         </div>
