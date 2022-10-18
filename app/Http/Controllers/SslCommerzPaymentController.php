@@ -37,7 +37,7 @@ class SslCommerzPaymentController extends Controller
 
         # CUSTOMER INFORMATION
         $post_data['cus_name'] = $request->cus_name;
-        $post_data['cus_email'] = $request->cus_name.'customer@demo.com';
+        $post_data['cus_email'] = $request->cus_phone.'@demo.com';
         $post_data['cus_add1'] = 'Feni';
         $post_data['cus_add2'] = "";
         $post_data['cus_city'] = "";
@@ -115,7 +115,12 @@ class SslCommerzPaymentController extends Controller
                 in order table as Processing or Complete.
                 Here you can also sent sms or email for successfull transaction to customer
                 */
+                $bank_id = SslCommerzPay_info::where('bank_tran_id',$request->bank_tran_id)->first();
+                if(!$bank_id)
+                {
                 $ssl = SslCommerzPay_info::create($request->all());
+                }
+                
                 $insert_amount = pay_success_info::create([
                     'tran_id' => encrypt($bank_tran_id),
                     'reg_id' => $reg_id,
