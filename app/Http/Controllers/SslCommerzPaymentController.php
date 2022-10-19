@@ -69,8 +69,9 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_b'] = $request->reg_id;
         $post_data['value_c'] = $request->type;
         $post_data['value_d'] = $request->std_dashboard ?? '';
+        $post_data['ipn_url'] = 'https://fgc100celebration.com/api/ipn';
     
-        // dd($post_data);
+        // dd(config('app.url'));
         #Before  going to initiate the payment order status need to update as Pending.
 
         $sslc = new SslCommerzNotification();
