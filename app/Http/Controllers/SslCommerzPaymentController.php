@@ -69,8 +69,8 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_b'] = $request->reg_id;
         $post_data['value_c'] = $request->type;
         $post_data['value_d'] = $request->std_dashboard ?? '';
-
-
+    
+        // dd($post_data);
         #Before  going to initiate the payment order status need to update as Pending.
 
         $sslc = new SslCommerzNotification();

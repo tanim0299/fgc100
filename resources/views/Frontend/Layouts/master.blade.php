@@ -33,7 +33,7 @@
 }
 </style>
 {{-- oncontextmenu="return false;" --}}
-<body >
+<body oncontextmenu="return false;">
     <div class="uk-background-muted uk-height-small">
     <div class="uk-card uk-card-default uk-card-body uk-text-center uk-position-z-index" uk-sticky="">
     <div class="container-fluid">

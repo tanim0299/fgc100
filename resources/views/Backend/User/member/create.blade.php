@@ -102,9 +102,9 @@
                         <div class="input-single-box">
                             <label>Member Type</label> <span>(Required)</span>
                             <select name="type" class="form-control">
-                                <option value="general">General Member</option>
-                                <option value="secretary">Secretary</option>
-                                <option value="main">Head Member</option>
+                                <option value="general">সদস্য</option>
+                                <option value="secretary">সদস্য সচিব</option>
+                                <option value="main">আহ্বায়ক</option>
                             </select>
                         </div>
                     </div>

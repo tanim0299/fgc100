@@ -55,4 +55,11 @@ class studentController extends Controller
 
         return view('Backend.User.studentInfo.get_family',compact('data'));
     }
+    
+    public function ex_payment_report()
+    {
+        $data = ex_students::where('payment',1)->get();
+        $sl = 1;
+        return view('Backend.User.studentInfo.ex_payment_report',compact('data','sl'));
+    }
 }
