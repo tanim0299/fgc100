@@ -521,4 +521,6 @@ class FrontendController extends Controller
             return redirect('/')->with('error_pay', 'Your Payment Is Not Yet Done');
         }
     }
+    
+    
 }

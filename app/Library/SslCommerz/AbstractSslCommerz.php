@@ -46,6 +46,7 @@ abstract class AbstractSslCommerz implements SslCommerzInterface
      */
     public function callToApi($data, $header = [], $setLocalhost = false)
     {
+        dd($data);
         $curl = curl_init();
 
         if (!$setLocalhost) {
