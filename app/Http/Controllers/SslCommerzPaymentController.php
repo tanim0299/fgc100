@@ -91,7 +91,7 @@ class SslCommerzPaymentController extends Controller
         date_default_timezone_set('Asia/Dhaka');
         // echo "Transaction is Successful";
         // dd($request->all());
-         Log::info(['success Request data----------'=>$post_data]);
+         Log::info(['success Request data----------'=>$request->all()]);
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $amount = $request->input('amount');
@@ -225,7 +225,7 @@ class SslCommerzPaymentController extends Controller
     {
         date_default_timezone_set('Asia/Dhaka');
         
-        Log::info(['fail Request data----------'=>$post_data]);
+        Log::info(['fail Request data----------'=>$request->all()]);
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
@@ -274,7 +274,7 @@ class SslCommerzPaymentController extends Controller
         
         date_default_timezone_set('Asia/Dhaka');
         
-        Log::info(['cancel Request data----------'=>$post_data]);
+        Log::info(['cancel Request data----------'=>$request->all()]);
             
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
@@ -320,7 +320,7 @@ class SslCommerzPaymentController extends Controller
     public function ipn(Request $request)
     {
         date_default_timezone_set('Asia/Dhaka');
-            Log::info(['ipn Request data----------'=>$post_data]);
+            Log::info(['ipn Request data----------'=>$request->all()]);
         #Received all the payement information from the gateway
         if ($request->input('tran_id')) #Check transation id is posted or not.
         {
