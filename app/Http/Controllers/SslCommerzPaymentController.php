@@ -19,6 +19,7 @@ class SslCommerzPaymentController extends Controller
     
     public function payViaAjax(Request $request)
     {
+        
         date_default_timezone_set('Asia/Dhaka');
         // return $request->all();
         $request = json_decode($request->cart_json);
@@ -72,6 +73,7 @@ class SslCommerzPaymentController extends Controller
         $post_data['ipn_url'] = 'https://fgc100celebration.com/api/ipn';
     
         // dd(config('app.url'));
+        Log::info(['Request data----------'=>$post_data]);
         #Before  going to initiate the payment order status need to update as Pending.
 
         $sslc = new SslCommerzNotification();
@@ -89,6 +91,7 @@ class SslCommerzPaymentController extends Controller
         date_default_timezone_set('Asia/Dhaka');
         // echo "Transaction is Successful";
         // dd($request->all());
+         Log::info(['success Request data----------'=>$post_data]);
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $amount = $request->input('amount');
@@ -221,6 +224,8 @@ class SslCommerzPaymentController extends Controller
     public function fail(Request $request)
     {
         date_default_timezone_set('Asia/Dhaka');
+        
+        Log::info(['fail Request data----------'=>$post_data]);
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
@@ -265,8 +270,12 @@ class SslCommerzPaymentController extends Controller
     }
 
     public function cancel(Request $request)
-    {
+    {   
+        
         date_default_timezone_set('Asia/Dhaka');
+        
+        Log::info(['cancel Request data----------'=>$post_data]);
+            
         $tran_id = $request->input('tran_id');
         $bank_tran_id = $request->input('bank_tran_id');
         $mobile = $request->input('value_a');
@@ -311,6 +320,7 @@ class SslCommerzPaymentController extends Controller
     public function ipn(Request $request)
     {
         date_default_timezone_set('Asia/Dhaka');
+            Log::info(['ipn Request data----------'=>$post_data]);
         #Received all the payement information from the gateway
         if ($request->input('tran_id')) #Check transation id is posted or not.
         {
