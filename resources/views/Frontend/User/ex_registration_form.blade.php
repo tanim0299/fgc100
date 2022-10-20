@@ -184,7 +184,7 @@ label.font {
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>আপনার ছবি</label>
-                    <input type="file" class="form-control" name="image">
+                    <input type="file" class="form-control" name="image" required>
                     @error('image')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
