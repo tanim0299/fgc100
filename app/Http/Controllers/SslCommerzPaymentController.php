@@ -213,6 +213,7 @@ class SslCommerzPaymentController extends Controller
         } else if ($order_details->payment == '1') {
 
             #That means Order status already updated. No need to udate database.
+            Log::info('Transaction is already successfully Completed ');
             return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
