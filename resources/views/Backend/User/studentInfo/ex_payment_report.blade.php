@@ -19,6 +19,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
+                        <th>সিরিয়াল নং</th>
                         <th>রেজিষ্ট্রেশন নং</th>
                         <th>নাম</th>
                         <th>পিতার নাম</th>
@@ -40,6 +41,7 @@
                     @foreach($data as $showdata)
                     <tr>
                     </tr>
+                        <td>{{$sl++}}</td>
                         <td>{{$showdata->registration_id}}</td>
                         <td>{{$showdata->name}}</td>
                         <td>{{$showdata->fathers_name}}</td>
