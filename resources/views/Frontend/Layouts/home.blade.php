@@ -311,7 +311,7 @@
                 @foreach($photo as $view)
                 <div>
                     <a class="uk-inline" href="{{asset('public/Backend/assets/images/gallery')}}/{{$view->image}}" data-caption="{{$view->title}}">
-                        <img src="{{asset('public/Backend/assets/images/gallery')}}/{{$view->image}}" width="" height="" alt="" id="gallery_image" class="img-fluid">
+                        <img src="{{asset('public/Backend/assets/images/gallery')}}/{{$view->image}}" width="500" height="400" alt="" id="gallery_image" class="img-fluid">
                     </a>
                 </div>
                 @endforeach
