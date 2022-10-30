@@ -37,7 +37,7 @@ class FrontendController extends Controller
         $about_anniversary = about_anniversary::first();
         $convener_speech = convener_speech::first();
         $news_info = news_info::get()->take(3);
-        $photo = photo_gallery::get()->take(4);
+        $photo = photo_gallery::get();
         $guideline = guideline_anniversary::first();
         return view('Frontend.Layouts.home',compact('main','convneer','about_anniversary','convener_speech','news_info','photo','guideline','secreatary','member','j_convneer'));
     }
@@ -55,6 +55,7 @@ class FrontendController extends Controller
         $general = member_info::where('committee_id',$id)
                    ->where('type','general')
                    ->where('status',1)
+                   ->orderby('sl','ASC')
                    ->paginate(10);
         return view('Frontend.User.advisors_panel',compact('main','comm','general','secretary'));
     }
