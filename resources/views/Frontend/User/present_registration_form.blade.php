@@ -185,7 +185,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12" id="input-box">
                     <label>আবেদনকারীর  ছবি</label>
-                    <input type="file" class="form-control" name="image" id="image">
+                    <input type="file" class="form-control" name="image" id="image" required>
                     @error('image')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -206,8 +206,8 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-12" id="input-box" style="text-align: center">
                     
-                    {{-- <input disabled id="submit" type="submit" class="btn btn-info" value="রেজিষ্ট্রেশন সম্পন্ন করুন"> --}}
-                    <input disabled type="submit" class="btn btn-info" value="১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে">
+                    <input disabled id="submit" type="submit" class="btn btn-info" value="রেজিষ্ট্রেশন সম্পন্ন করুন"> 
+                    <!--<input disabled type="submit" class="btn btn-info" value="১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে">-->
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-12" id="input-box" style="text-align: center">
