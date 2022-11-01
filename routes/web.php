@@ -57,6 +57,8 @@ Route::get('/fgc_history', [FrontendController::class, 'fgc_history']);
 Route::get('/terms-condition', [FrontendController::class, 'terms_condition']);
 Route::get('/privacy-policy', [FrontendController::class, 'privacy_policy']);
 Route::get('/refund-policy', [FrontendController::class, 'refund_policy']);
+Route::get('/collect-image', [FrontendController::class, 'collect_image']);
+Route::post('/getImage', [FrontendController::class, 'getImage']);
 
 Route::get('/student_login', [FrontendController::class, 'student_login']);
 Route::post('/studentLoginAttempt', [FrontendController::class, 'studentLoginAttempt']);

@@ -522,6 +522,39 @@ class FrontendController extends Controller
             return redirect('/')->with('error_pay', 'Your Payment Is Not Yet Done');
         }
     }
+
+    public function collect_image()
+    {
+        return view('Frontend.User.collect_image');
+    }
+    public function getImage(Request $request)
+    {
+        // return $request->reg_id;
+        if($request->type == 'present')
+        {
+            $data = present_students::where('registration_id',$request->reg_id)->first();
+            $type = $request->type;
+
+            return view('Frontend.User.download_picture',compact('data','type'));
+        }
+        elseif($request->type == 'ex')
+        {
+            $data = ex_students::where('registration_id',$request->reg_id)->first();
+            $type = $request->type;
+    
+            return view('Frontend.User.download_picture',compact('data','type'));
+            
+        }
+        elseif($request->type == 'family')
+        {
+            $data = family_member_info::where('family_member_id',$request->reg_id)->first();
+
+            $type = $request->type;
+    
+            return view('Frontend.User.download_picture',compact('data','type'));
+
+        }
+    }
     
     
 }
