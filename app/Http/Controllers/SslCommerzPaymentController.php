@@ -131,7 +131,7 @@ class SslCommerzPaymentController extends Controller
                 in order table as Processing or Complete.
                 Here you can also sent sms or email for successfull transaction to customer
                 */
-                $bank_id = SslCommerzPay_info::where('bank_tran_id',$request->bank_tran_id)->first();
+                $bank_id = SslCommerzPay_info::where('bank_tran_id',$bank_tran_id)->first();
                 if(!$bank_id)
                 {
                 $ssl = SslCommerzPay_info::create($request->all());
@@ -355,14 +355,14 @@ class SslCommerzPaymentController extends Controller
 
             if ($order_details->payment == '0') {
                 $sslc = new SslCommerzNotification();
-                $validation = $sslc->orderValidate($request->all(), $tran_id, $order_details->amount, $order_details->currency, $order_details->phone);
+                $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $bank_tran_id, $mobile);
                 if ($validation == TRUE) {
                     /*
                     That means IPN worked. Here you need to update order status
                     in order table as Processing or Complete.
                     Here you can also sent sms or email for successful transaction to customer
                     */
-                     $bank_id = SslCommerzPay_info::where('bank_tran_id',$request->bank_tran_id)->first();
+                     $bank_id = SslCommerzPay_info::where('bank_tran_id',$bank_tran_id)->first();
                 if(!$bank_id)
                 {
                 $ssl = SslCommerzPay_info::create($request->all());
