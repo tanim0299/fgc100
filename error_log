@@ -1,0 +1,2 @@
+[31-Oct-2022 17:49:59 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 16384 bytes) in /home/fgc100celebratio/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[31-Oct-2022 18:12:04 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 16384 bytes) in /home/fgc100celebratio/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
