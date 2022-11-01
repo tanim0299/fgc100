@@ -92,7 +92,7 @@ class RegistrationController extends Controller
                 $img = Image::make($request->file('image')->getRealPath());
 
                 $path = public_path() . '/Backend/Images/StudentImage/';
-                $img->resize(100, 100, function ($constraint) {
+                $img->resize(400, 400, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path . '/' . $imageName);
 
@@ -224,7 +224,7 @@ class RegistrationController extends Controller
                         $img = Image::make($request->file('image')->getRealPath());
 
                         $path = public_path() . '/Backend/Images/FamilyMember/';
-                        $img->resize(100, 100, function ($constraint) {
+                        $img->resize(400, 400, function ($constraint) {
                             $constraint->aspectRatio();
                         })->save($path . '/' . $imageName);
 
@@ -243,7 +243,7 @@ class RegistrationController extends Controller
                 $img = Image::make($request->file('image')->getRealPath());
 
                 $path = public_path() . '/Backend/Images/StudentImage/';
-                $img->resize(100, 100, function ($constraint) {
+                $img->resize(400, 400, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path . '/' . $imageName);
 
