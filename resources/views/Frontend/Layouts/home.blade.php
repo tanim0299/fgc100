@@ -28,8 +28,8 @@
 
   <div class="links">
     <li class="">
-        <!--<a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>-->
-        <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a>
+        <a class="nav-link btn btn-info" href="{{url('/present-registration-form')}}" style="color: white !important;">বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
+        <!--<a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a>-->
       </li>
     <li class="">
         <a class="nav-link btn btn-warning" href="{{url('/ex-registration-form')}}" style="color: white !important;">প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
