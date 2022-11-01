@@ -62,4 +62,10 @@ class studentController extends Controller
         $sl = 1;
         return view('Backend.User.studentInfo.ex_payment_report',compact('data','sl'));
     }
+    public function running_payment_report()
+    {
+        $data = present_students::where('payment',1)->get();
+        $sl = 1;
+        return view('Backend.User.studentInfo.present_payment_report',compact('data','sl'));
+    }
 }

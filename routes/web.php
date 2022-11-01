@@ -178,6 +178,7 @@ Route::post('/getpresentStudents', [studentController::class, 'getpresentStudent
 Route::post('/getexStudents', [studentController::class, 'getexStudents']);
 Route::post('/getfamilyMember', [studentController::class, 'getfamilyMember']);
 Route::get('/ex_payment_report', [studentController::class, 'ex_payment_report']);
+Route::get('/running_payment_report', [studentController::class, 'running_payment_report']);
 
 
 
