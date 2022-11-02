@@ -134,7 +134,7 @@
                         <option value="" disabled="" selected="">শ্রেণী নির্বাচন করুন</option>
                         <option {{old('last_class') === 'HSC' ? 'selected' : ''}} value="HSC">এইচ এস সি</option>
                         <option {{old('last_class') === 'Degree' ? 'selected' : ''}} value="Degree">ডিগ্রী পাস কোর্স</option>
-                        <option {{old('last_class') === 'Honours' ? 'selected' : ''}} value="Honurs">অনার্স</option>
+                        <option {{old('last_class') === 'Honours' ? 'selected' : ''}} value="Honours">অনার্স</option>
                         <option {{old('last_class') === 'Masters First Year' ? 'selected' : ''}} value="Masters First Year">মাষ্টার্স প্রথম পর্ব</option>
                         <option {{old('last_class') === 'Masters Last Year' ? 'selected' : ''}} value="Masters Last Year">মাষ্টার্স শেষ পর্ব</option>
                         
