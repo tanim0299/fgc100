@@ -352,16 +352,20 @@ class SslCommerzPaymentController extends Controller
                 $order_details = present_students::where('phone', $mobile)->first();
             }
         }
-
+            Log::info(['ipn order_details----------'=>$order_details]);
             if ($order_details->payment == '0') {
                 $sslc = new SslCommerzNotification();
-                $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $bank_tran_id, $mobile);
+                // $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $bank_tran_id, $mobile);
+                    $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency, $mobile);
+                      Log::info('=========validation ipn to  payment=================');
                 if ($validation == TRUE) {
                     /*
                     That means IPN worked. Here you need to update order status
                     in order table as Processing or Complete.
                     Here you can also sent sms or email for successful transaction to customer
                     */
+                    
+                    Log::info('=========validation == TRUE ipn to  payment=================');
                      $bank_id = SslCommerzPay_info::where('bank_tran_id',$bank_tran_id)->first();
                 if(!$bank_id)
                 {
@@ -406,6 +410,8 @@ class SslCommerzPaymentController extends Controller
                     
                     return response()->json(['success_pay'=>'Transaction is successfully Completed']);
                 } else {
+                    
+                    Log::info('=========ipn validation Fail=================');
                     /*
                     That means IPN worked, but Transation validation failed.
                     Here you need to update order status as Failed in order table.
@@ -431,17 +437,20 @@ class SslCommerzPaymentController extends Controller
                     return response()->json(['warning'=>'validation Fail']);
                 }
             } else if ($order_details->payment == '1') {
-
+                     Log::info(['ipn payment already done check'=>$order_details->payment]);
                 #That means Order status already updated. No need to udate database.
 
                 // return redirect('/invoice')->with('warning_pay', 'Transaction is already successfully Completed');
                  return response()->json(['info'=>'Transaction is already successfully Completed']);
             } else {
+                Log::info(['ipn payment Invalid done check'=>$order_details->payment]);
                 #That means something wrong happened. You can redirect customer to your product page.
                 return response()->json(['error'=>'Invalid Transaction']);
                 // return redirect('/' . $std_dashboard)->with('error_pay', 'Invalid Transaction');
             }
         } else {
+            Log::info(['ipn trans id check'=>$request->input('tran_id')]);
+            
             return response()->json(['error'=>'Invalid Data']);
             // return redirect('/')->with('error_pay', 'Invalid Data');
         }

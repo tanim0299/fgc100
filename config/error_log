@@ -1,0 +1,16 @@
+[02-Nov-2022 09:30:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/fgc100celebratio/public_html/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/fgc100celebratio/public_html/config/cache.php on line 21
+[05-Nov-2022 06:34:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/fgc100celebratio/public_html/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/fgc100celebratio/public_html/config/cache.php on line 21
+[07-Nov-2022 07:36:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/fgc100celebratio/public_html/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/fgc100celebratio/public_html/config/cache.php on line 21
+[07-Nov-2022 07:36:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/fgc100celebratio/public_html/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/fgc100celebratio/public_html/config/cache.php on line 21
