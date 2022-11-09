@@ -352,12 +352,12 @@ class SslCommerzPaymentController extends Controller
                 $order_details = present_students::where('phone', $mobile)->first();
             }
         }
-            Log::info(['ipn order_details----------'=>$order_details]);
+            // Log::info(['ipn order_details----------'=>$order_details]);
             if ($order_details->payment == '0') {
                 $sslc = new SslCommerzNotification();
                 // $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $bank_tran_id, $mobile);
                     $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency, $mobile);
-                      Log::info('=========validation ipn to  payment=================');
+                    //   Log::info('=========validation ipn to  payment=================');
                 if ($validation == TRUE) {
                     /*
                     That means IPN worked. Here you need to update order status
@@ -365,7 +365,7 @@ class SslCommerzPaymentController extends Controller
                     Here you can also sent sms or email for successful transaction to customer
                     */
                     
-                    Log::info('=========validation == TRUE ipn to  payment=================');
+                    // Log::info('=========validation == TRUE ipn to  payment=================');
                      $bank_id = SslCommerzPay_info::where('bank_tran_id',$bank_tran_id)->first();
                 if(!$bank_id)
                 {
