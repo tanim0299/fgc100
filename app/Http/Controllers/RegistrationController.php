@@ -170,7 +170,7 @@ class RegistrationController extends Controller
             'address' => $request->address,
             'last_class' => $request->last_class,
             'registration_number' => $request->registration_number,
-            'roll_number' => $request->roll_number,
+            // 'roll_number' => $request->roll_number,
             'passing_year' => $request->passing_year,
             'session' => $request->session,
             'occupation' => $request->occupation,

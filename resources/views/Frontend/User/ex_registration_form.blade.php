@@ -42,7 +42,7 @@ label.font {
 
                 <li>নিয়মিত  শিক্ষার্থীদের  রেজিষ্ট্রেশন কার্যক্রম   শুরু হবে ১ লা নভেম্বর. ২০২২ এবং চলবে ৩০ নভেম্বর ২০২২ পর্যন্ত।</li>
 
-                <li>প্রাক্তন  শিক্ষার্থীদের  রেজিষ্ট্রেশন  আজ ১৫ অক্টোবর,২০২২ হতে আগামী ৩০ নভেম্বর  পর্যন্ত  চলবে।</li>
+                   <li>প্রাক্তন  শিক্ষার্থীদের  রেজিষ্ট্রেশন  আজ ১৫ অক্টোবর,২০২২ হতে   ২০ জানুয়ারী ২০২৩ পর্যন্ত  চলবে।</li>
 
                 <li>নির্ধারিত  সংখ্যক শিক্ষার্থীর  রেজিষ্ট্রেশন  হয়ে গেলে সফটওয়্যার  আপনা আপনিই বন্ধ হয়ে যাবে। অর্থাৎ  নতুন করে কেউ আর রেজিষ্ট্রেশন  করতে পারবেন না।</li>
 
@@ -136,10 +136,10 @@ label.font {
                     <label class="font">রেজিষ্ট্রেশন নম্বর(বোর্ড / বিশ্ববিদ্যালয় প্রদত্ত)</label>
                     <input type="number" class="form-control" name="registration_number" value="{{old('registration_number')}}">
                 </div> --}}
-                <div class="col-lg-3 col-md-3 col-6" id="input-box">
-                    <label class="font">রোল নম্বর(বোর্ড / বিশ্ববিদ্যালয় প্রদত্ত)</label>
-                    <input type="number" class="form-control" name="roll_number" value="{{old('roll_number')}}">
-                </div>
+                <!--<div class="col-lg-3 col-md-3 col-6" id="input-box">-->
+                <!--    <label class="font">রোল নম্বর(বোর্ড / বিশ্ববিদ্যালয় প্রদত্ত)</label>-->
+                <!--    <input type="number" class="form-control" name="roll_number" value="{{old('roll_number')}}">-->
+                <!--</div>-->
                 <div class="col-lg-3 col-md-3 col-6" id="input-box">
                     <label>পাসের সন </label><span>(ইংরেজীতে)</span>
                     <input type="text" class="form-control" name="passing_year" value="{{old('passing_year')}}" placeholder="EX:2009">
