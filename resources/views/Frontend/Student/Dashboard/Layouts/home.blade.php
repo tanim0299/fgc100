@@ -30,27 +30,32 @@
                     <div class="row text-center mt-3">
                         <div class="col-lg-12 col-md-6 col-12">
                             <div class="profile">
-                                @php 
+                                @php
                                 $type = Auth::guard('students')->user()->student_type;
                                 if($type == 1)
                                 {
                                     $id = Auth::guard('students')->user()->student_id;
                                     $data = DB::table('present_students')->where('registration_id',$id)->first();
                                 }
-                                else 
+                                elseif($type == 3)
+                                {
+                                    $id = Auth::guard('students')->user()->student_id;
+                                    $data = DB::table('others_students')->where('registration_id',$id)->first();
+                                }
+                                else
                                 {
                                     $id = Auth::guard('students')->user()->student_id;
                                     $data = DB::table('ex_students')->where('registration_id',$id)->first();
                                 }
                                 @endphp
-                                @php 
+                                @php
                                 $path = public_path().'/Backend/Images/StudentImage/'.$data->image;
                                 @endphp
                                 @if(file_exists($path))
                                 <img src="{{asset('public')}}/Backend/Images/StudentImage/{{$data->image}}" alt="" class="img-fluid"><br><br>
                                 @endif
                                 <b>{{$data->name}}</b><br>
-                                @if(Auth::guard('students')->user()->student_type == 1)
+                                @if(Auth::guard('students')->user()->student_type == 1 || Auth::guard('students')->user()->student_type == 3)
                                 <span>{{$data->present_class}}</span><br>
                                 @else
                                 <span>{{$data->last_class}}</span><br>
@@ -101,7 +106,7 @@
                                     <span>{{$data->admission_year}}</span>
                                 </div>
                             </div>
-                            @else 
+                            @else
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="info-single">
                                     <b>পাসের সন</b><br>
@@ -110,14 +115,14 @@
                             </div>
                             @endif
 
-                            @if(Auth::guard('students')->user()->student_type == '1')
+                            @if(Auth::guard('students')->user()->student_type == 1 || Auth::guard('students')->user()->student_type == 3)
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="info-single">
                                     <b>শ্রেণী</b><br>
                                     <span>{{$data->present_class}}</span>
                                 </div>
                             </div>
-                            @else 
+                            @else
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="info-single">
                                     <b>সর্বশেষ অধ্যয়নকৃত ক্লাস</b><br>
@@ -128,7 +133,12 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="info-single">
                                     <b>রেজিষ্ট্রেশন নাম্বার</b><br>
+                                    @if(Auth::guard('students')->user()->student_type == 3)
+
+                                    <span>{{$data->registration_no}}</span>
+                                    @else
                                     <span>{{$data->registration_number}}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12">

@@ -52,6 +52,7 @@ Route::get('/print_data', [FrontendController::class, 'print_data']);
 Route::get('/registration-form', [FrontendController::class, 'registration_form']);
 Route::get('/present-registration-form', [FrontendController::class, 'present_registration_form']);
 Route::get('/ex-registration-form', [FrontendController::class, 'ex_registration_form']);
+Route::get('/others-student_registration', [FrontendController::class, 'others_student_registration']);
 Route::get('/view_news/{id}', [FrontendController::class, 'view_news']);
 Route::get('/fgc_history', [FrontendController::class, 'fgc_history']);
 Route::get('/terms-condition', [FrontendController::class, 'terms_condition']);
@@ -78,9 +79,11 @@ Route::get('/registration_procedure',[FrontendController::class,'vedio']);
 
 Route::post('/present_registration', [RegistrationController::class, 'present_registration']);
 Route::post('/ex_registration', [RegistrationController::class, 'ex_registration']);
+Route::post('/otherRegistration', [RegistrationController::class, 'otherRegistration']);
 
 Route::get('/present_payment/{id}', [RegistrationController::class, 'presentpayment']);
 Route::get('/ex_payment/{id}', [RegistrationController::class, 'expayment']);
+Route::get('/others_student_payment/{id}', [RegistrationController::class, 'others_student_payment']);
 
 
 Route::post('/check_phone', [RegistrationController::class, 'check_phone']);
