@@ -82,14 +82,17 @@
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{url('/festival-gallery')}}">উৎসব গ্যালারী</a>
                               </li> --}}
-                            
+
                               <li class="nav-item">
                                 <a class="nav-link btn btn-info btn-sm" href="{{url('/present-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> বর্তমান শিক্ষার্থীদের নিবন্ধন</a>
                                 {{-- <a class="nav-link btn btn-info btn-sm btn-disabled" href="#" style="color: white !important;"><i class="fa fa-users"></i>১লা নভেম্বর থেকে বর্তমান শিক্ষার্থীদের রেজিষ্ট্রেশন চালু হবে</a> --}}
                               </li>
-                              
+
                             <li class="nav-item">
                                 <a class="nav-link btn btn-warning btn-sm" href="{{url('/ex-registration-form')}}" style="color: white !important;"><i class="fa fa-users"></i> প্রাক্তন শিক্ষার্থীদের নিবন্ধন</a>
+                              </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-dark btn-sm" href="{{url('/others-student_registration')}}" style="color: white !important;"><i class="fa fa-users"></i> অন্য প্রতিষ্ঠানের শিক্ষার্থীদের নিবন্ধন</a>
                               </li>
                             @if(Auth::guard('students')->check())
                             @php

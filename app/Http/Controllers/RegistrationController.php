@@ -7,6 +7,7 @@ use App\Models\present_students;
 use App\Models\ex_students;
 use App\Models\family_member_info;
 use App\Models\student_user;
+use App\Models\others_student;
 use Auth;
 use DB;
 use Hash;
@@ -110,7 +111,7 @@ class RegistrationController extends Controller
                 'pass_recover' => $password,
             ]);
 
-            
+
 
 
             $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . ' Please Pay Your Registration Fee';
@@ -125,6 +126,110 @@ class RegistrationController extends Controller
             return redirect()->back()->with('error', 'রেজিষ্ট্রেশন সম্পন্ন হয়নি। দয়া করে আবার দেখুন');
         }
     }
+
+    public function otherRegistration(Request $request)
+    {
+        // dd($request->all());
+        $validated = $request->validate(
+            [
+                'name' => 'required',
+                'phone' => 'required|max:11|min:11|unique:present_students|unique:student_users',
+                'image' => 'mimes:jpeg,png,jpg,gif|max:2048',
+                'fathers_name' => 'required',
+                'mothers_name' => 'required',
+                'gender' => 'required',
+                'session' => 'required',
+            ],
+            [
+                'name.required' => 'আপনার নাম দিন',
+                'phone.required' => 'আপনার মোবাইল নাম্বার দিন',
+                'phone.max' => 'মোবাইল নাম্বার সর্বোচ্চ ডিজিট ১১',
+                'phone.min' => 'মোবাইল নাম্বার সর্বনিম্ন ডিজিট ১১',
+                'phone.unique' => 'এই মোবাইল নাম্বারটি দ্বারা রেজিষ্ট্রেশন সম্পন্ন হয়েছে',
+                'fathers_name.required' => 'আপনার পিতার নাম দিন',
+                'mothers_name.required' => 'আপনার মাতার নাম দিন',
+                'gender.required' => 'লিঙ্গ নির্বাচন করুন',
+                'session.required' => 'আপনার শিক্ষাবর্ষ দিন',
+            ]
+        );
+
+        $registration_id = $this->AutoCode('others_students', 'registration_id', 'OS-', '10');
+
+
+        $total_ammount = 1000;
+
+        $data = array(
+            'registration_id' => $registration_id,
+            'name' => $request->name,
+            'fathers_name' => $request->fathers_name,
+            'mothers_name' => $request->mothers_name,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'passing_year' => $request->passing_year,
+            'passing_class' => $request->passing_class,
+            'roll_number' => $request->roll_number,
+            'session' => $request->session,
+            'phone' => $request->phone,
+            'present_class' => $request->present_class,
+            'group' => $request->group,
+            'admission_year' => $request->admission_year,
+            'class_roll_id' => $request->class_roll_id,
+            'registration_no' => $request->registration_no,
+            'email' => $request->email,
+            't_shirt' => $request->t_shirt,
+            'total_member' => 1,
+            'total_ammount' => $total_ammount,
+            'image' => '0',
+        );
+
+        $insert = others_student::create($data);
+
+        if ($insert) {
+            $id = $insert->id;
+
+            $file = $request->file('image');
+            if ($file) {
+                $imageName = rand() . '.' . $file->getClientOriginalExtension();
+
+
+                $img = Image::make($request->file('image')->getRealPath());
+
+                $path = public_path() . '/Backend/Images/StudentImage/';
+                $img->resize(400, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($path . '/' . $imageName);
+
+                others_student::find($id)->update(['image' => $imageName]);
+            }
+
+            $password = rand(1000, 9999);
+
+            student_user::create([
+                'student_id' => $registration_id,
+                'student_type' => 3,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($password),
+                'pass_recover' => $password,
+            ]);
+
+
+
+
+            $message = 'Your Registration  Successfully Done. User ID:' . $request->phone . ' Password:' . $password . ' Please Pay Your Registration Fee';
+            $recipient = $request->phone;       // For SINGLE_SMS or OTP
+            $requestType = 'SINGLE_SMS';    // options available: "SINGLE_SMS", "OTP"
+            $messageType = 'TEXT';         // options available: "TEXT", "UNICODE"
+            $sms = new AdnSmsNotification();
+            $sms->sendSms($requestType, $message, $recipient, $messageType);
+            // return 1;
+            return redirect('/others_student_payment/' . $insert->id)->with('success', 'আপনার রেজিষ্ট্রেশন সম্পন্ন হয়েছে');
+        } else {
+            return redirect()->back()->with('error', 'রেজিষ্ট্রেশন সম্পন্ন হয়নি। দয়া করে আবার দেখুন');
+        }
+
+    }
+
     public function ex_registration(Request $request)
     {
         // dd($request->all());
@@ -264,6 +369,16 @@ class RegistrationController extends Controller
         } else {
 
             return view('Frontend.User.present_payment', compact('data'));
+        }
+    }
+    public function others_student_payment($id)
+    {
+        $data = others_student::find($id);
+        if ($data->payment == 1) {
+            return redirect('/');
+        } else {
+
+            return view('Frontend.User.others_payment', compact('data'));
         }
     }
     public function expayment($id)

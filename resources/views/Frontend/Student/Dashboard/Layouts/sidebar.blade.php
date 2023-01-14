@@ -7,6 +7,11 @@ if($type == 1)
     $id = Auth::guard('students')->user()->student_id;
     $data = DB::table('present_students')->where('registration_id',$id)->first();
 }
+if($type == 3)
+{
+    $id = Auth::guard('students')->user()->student_id;
+    $data = DB::table('others_students')->where('registration_id',$id)->first();
+}
 else
 {
     $id = Auth::guard('students')->user()->student_id;
@@ -74,7 +79,35 @@ else
                 <li class="nav-item">
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
                 </li>
-                @endif 
+                @endif
+                @elseif($type == 3)
+                @php
+                $id = Auth::guard('students')->user()->student_id;
+                $check = DB::table('others_students')->where('registration_id',$id)->first();
+                $bank_id = DB::table('ssl_commerz_pay_infos')->where('value_b',$check->registration_id)->where('status','VALID')->pluck('bank_tran_id')->first();
+                try {
+                    //code...
+                    $tran_id = decrypt($check->tran_id);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                    $tran_id=null;
+                }
+                @endphp
+                @if($check->payment == 1)
+                {{-- <li class="nav-item">
+                    <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
+                </li> --}}
+                <li class="nav-item">
+                    <a target="_blank" href="{{url('/invoice')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Money Reciept</span></a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{url('/std_info_edit')}}/{{Auth::guard('students')->user()->student_type}}/{{Auth::guard('students')->user()->student_id}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit"></i></span><span class="pcoded-mtext">Edit Your Info</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
+                </li>
+                @endif
                 @else
                 @php
                 $id = Auth::guard('students')->user()->student_id;
@@ -88,7 +121,7 @@ else
                     $tran_id=null;
                 }
                 @endphp
-                
+
                 @if($check->payment == 1)
                 {{-- <li class="nav-item">
                     <a target="_blank" href="{{url('/id_card')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Your Card</span></a>
@@ -104,10 +137,10 @@ else
                     <a href="{{url('/make_payment')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Make Payment</span></a>
                 </li>
 
-                
+
                 @endif
                 @endif
-                
+
                 <li class="nav-item">
                     <a href="{{url('/student_logout')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out m-r-5"></i></span><span class="pcoded-mtext">Logout</span></a>
                 </li>

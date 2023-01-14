@@ -18,6 +18,7 @@ use App\Models\student_user;
 use App\Models\terms_condition;
 use App\Models\privacy_policy;
 use App\Models\refund_policy;
+use App\Models\others_student;
 use Exception;
 use Twilio\Rest\Client;
 use Auth;
@@ -105,6 +106,10 @@ class FrontendController extends Controller
     {
         return view('Frontend.User.ex_registration_form');
     }
+    public function others_student_registration()
+    {
+        return view('Frontend.User.others_student_registration');
+    }
     public function student_login()
     {
         if(Auth::guard('students')->check())
@@ -127,6 +132,18 @@ class FrontendController extends Controller
             if($type == 1)
             {
                 $check = present_students::where('phone',$request->phone)->first();
+                if($check->payment == 1)
+                {
+                    return redirect('/std_dashboard');
+                }
+                else
+                {
+                    return redirect('/make_payment');
+                }
+            }
+            elseif($type == 3)
+            {
+                $check = others_student::where('phone',$request->phone)->first();
                 if($check->payment == 1)
                 {
                     return redirect('/std_dashboard');
@@ -355,6 +372,11 @@ class FrontendController extends Controller
                 $id = Auth::guard('students')->user()->student_id;
                 $data = present_students::where('registration_id',$id)->first();
             }
+            if(Auth::guard('students')->user()->student_type == 3)
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = others_student::where('registration_id',$id)->first();
+            }
             else
             {
                 $id = Auth::guard('students')->user()->student_id;
@@ -385,7 +407,7 @@ class FrontendController extends Controller
                           ->join('ex_students','ex_students.id','=','family_member_infos.student_id')
                           ->select('ex_students.name','ex_students.last_class','ex_students.session','family_member_infos.*')
                           ->first();
-                
+
                 return view('Frontend.Student.Dashboard.User.id_card',compact('data','id','family'));
             }
         }
@@ -451,11 +473,17 @@ class FrontendController extends Controller
                 $data = present_students::where('registration_id',$id)->first();
                 return view('Frontend.Student.Dashboard.User.invoice',compact('data','id'));
             }
+            elseif(Auth::guard('students')->user()->student_type == 3)
+            {
+                $id = Auth::guard('students')->user()->student_id;
+                $data = others_student::where('registration_id',$id)->first();
+                return view('Frontend.Student.Dashboard.User.invoice',compact('data','id'));
+            }
             else
             {
                 $id = Auth::guard('students')->user()->student_id;
                 $data = ex_students::where('registration_id',$id)->first();
-                
+
                 return view('Frontend.Student.Dashboard.User.invoice',compact('data','id'));
             }
         }
@@ -474,7 +502,7 @@ class FrontendController extends Controller
                 $data = present_students::where('registration_id',$id)->first();
 
                 $pdf = PDF::loadVIew('Frontend.Student.Dashboard.User.invoice_download',compact('data'));
-                
+
                 return $pdf->stream('invoice.pdf');
             }
             else
@@ -514,7 +542,7 @@ class FrontendController extends Controller
         $data = present_students::where('registration_id',$id)->first();
         if($data->payment == 1)
         {
-            
+
             return view('Frontend.Student.Dashboard.User.present_invoice',compact('data','id'));
         }
         else
@@ -541,20 +569,20 @@ class FrontendController extends Controller
         {
             $data = ex_students::where('registration_id',$request->reg_id)->first();
             $type = $request->type;
-    
+
             return view('Frontend.User.download_picture',compact('data','type'));
-            
+
         }
         elseif($request->type == 'family')
         {
             $data = family_member_info::where('family_member_id',$request->reg_id)->first();
 
             $type = $request->type;
-    
+
             return view('Frontend.User.download_picture',compact('data','type'));
 
         }
     }
-    
-    
+
+
 }
